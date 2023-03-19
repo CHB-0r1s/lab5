@@ -31,7 +31,7 @@ public class Main {
         invokerHashMap.put("remove_greater", new RemoveGreater(commandReceiver));
         invokerHashMap.put("remove_lower", new RemoveLower(commandReceiver));
         invokerHashMap.put("save", new Save(commandReceiver));
-        invokerHashMap.put("execute_script", new ExecuteScript(commandReceiver)); // TODO: циклическая рекурсия
+        invokerHashMap.put("execute_script", new ExecuteScript(commandReceiver));
         invokerHashMap.put("history", new History(commandReceiver));
         invokerHashMap.put("remove_all_by_health", new RemoveAllByHealth(commandReceiver));
         invokerHashMap.put("max_by_melee_weapon", new MaxByMeleeWeapon(commandReceiver));
