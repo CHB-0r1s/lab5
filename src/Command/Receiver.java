@@ -1,0 +1,142 @@
+package Command;
+
+import BaseObjects.*;
+import Command.ConcreteCommands.ExecuteScript;
+import Utils.ManagerOfCollection;
+import Utils.SpaceMarineCreator;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+
+public class Receiver {
+    private final Invoker commandInvoker;
+
+    public Receiver(Invoker commandInvoker) {
+        this.commandInvoker = commandInvoker;
+    }
+
+    public void help() {
+        commandInvoker.invokerHashMap.forEach((name, command) -> command.writeInfo());
+    }
+
+    public void info() {
+        ManagerOfCollection.getInformationAbout();
+    }
+
+    public void show() {
+        ManagerOfCollection.show();
+    }
+
+    public void add() {
+        SpaceMarine spaceMarine = SpaceMarineCreator.createSpaceMarine();
+        System.out.println("Создан элемент с id " + spaceMarine.getId());
+        ManagerOfCollection.add(spaceMarine);
+    }
+
+    public void update(String id) {
+        long ID;
+        try {
+            ID = Long.parseLong(id);
+            if (ManagerOfCollection.elemExist(ID)) { ManagerOfCollection.update(SpaceMarineCreator.createSpaceMarine(), ID); }
+            else {System.out.println("Элемента с таким ID нет в коллекции.");}
+        } catch (NumberFormatException e) {
+            System.out.println("Команда не выполнена. Вы ввели некорректный аргумент.");
+        }
+    }
+
+    public void remove_by_id(String id) {
+        long ID;
+        try {
+            ID = Long.parseLong(id);
+            if (ManagerOfCollection.elemExist(ID)) {
+                ManagerOfCollection.remove_by_id(ID);
+                System.out.println("Элемент с ID " + ID + " успешно удален из коллекции.");
+            } else {System.out.println("Элемента с таким ID нет в коллекции.");}
+        } catch (NumberFormatException e) {
+            System.out.println("Команда не выполнена. Вы ввели некорректный аргумент.");
+        }
+    }
+
+    public void clear() {
+        ManagerOfCollection.clear();
+    }
+
+    public void exit() {
+        //System.out.println("Сохранить вашу коллекцию перед выходом? [yes/no]");
+        // TODO: В следующий раз реализовать превентивное сохранение коллекции
+        System.out.println("Программа завершает работу, пока-пока");
+        System.exit(0);
+    }
+
+    public void remove_greater() {
+        ManagerOfCollection.remove_greater(SpaceMarineCreator.createSpaceMarine());
+    }
+
+    public void remove_lower() {
+        ManagerOfCollection.remove_lower(SpaceMarineCreator.createSpaceMarine());
+    }
+
+    public void save() throws IOException {
+        ManagerOfCollection.save();
+    }
+
+    public void execute_script(String path) throws IOException {
+        String line;
+        String command;
+        ArrayList<String> parameters = new ArrayList<>();
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new BufferedInputStream(new FileInputStream(path)), StandardCharsets.UTF_8))) {
+            while ((line = bufferedReader.readLine()) != null) {
+                if (line.split(" ")[0].matches("add|update|remove_greater|remove_lower")) {
+                    command = line;
+                    for (int i = 0; i < 9; i++) {
+                        if (line != null) {
+                            line = bufferedReader.readLine();
+                            parameters.add(line);
+                        } else { System.out.println("Не хватает параметров для создания объекта."); break; }
+                    }
+                    SpaceMarine spaceMarine = SpaceMarineCreator.createScriptSpaceMarine(parameters);
+                    switch (command.split(" ")[0]) {
+                        case "add" -> ManagerOfCollection.add(spaceMarine);
+                        case "update" -> ManagerOfCollection.update(spaceMarine, Long.parseLong(command.split(" ")[1]));
+                        case "remove_greater" -> ManagerOfCollection.remove_greater(spaceMarine);
+                        case "remove_lower" -> ManagerOfCollection.remove_lower(spaceMarine);
+                    }
+                } else if (line.split(" ")[0].equals("execute_script")
+                        && line.split(" ")[1].equals(ExecuteScript.getPath())) { System.out.println("Пресечена попытка рекурсивного вызова скрипта."); }
+                else { commandInvoker.Invoke(line.split(" ")); }
+                }
+            }
+        catch (IOException e) {
+            System.out.println("Ошибка! " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void history() { // TODO вывод меньше чем 11 элементов, обработка попадания history в память
+        if (commandInvoker.invokerListOfCommand.size() >= 11) {
+            for (int i = commandInvoker.invokerListOfCommand.size() - 1; i > commandInvoker.invokerListOfCommand.size() - 11; i--) {
+                System.out.println(commandInvoker.invokerListOfCommand.get(i));
+            }
+        }
+        else {
+            System.out.println("Недостаточно элементов для вывода 11 последних элементов. Текущее количество элементов: " + commandInvoker.invokerListOfCommand.size());
+        }
+    }
+
+    public void remove_all_by_health(String health) {
+        double HP;
+        HP = Double.parseDouble(health);
+
+        ManagerOfCollection.remove_all_by_health(HP);
+    }
+
+    public void max_by_melee_weapon() {
+        ManagerOfCollection.max_by_melee_weapon();
+    }
+
+    public void print_unique_chapter() {
+        ManagerOfCollection.print_unique_chapter();
+    }
+
+}
