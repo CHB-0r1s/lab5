@@ -9,7 +9,7 @@ public class MyStringReader {
         String inputString = scanner.nextLine();
 
         while(!nullable && inputString.equals("")) {
-            System.out.print("Данное поле не может быть пустым. " + consoleMessage);
+            System.out.print("This field cannot be empty. " + consoleMessage);
             inputString = scanner.nextLine().trim();
         }
 

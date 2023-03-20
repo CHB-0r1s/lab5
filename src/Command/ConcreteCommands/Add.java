@@ -13,13 +13,13 @@ public class Add extends Command {
     @Override
     protected void execute(String[] args) {
         if (args.length > 1) {
-            System.out.println("Введены лишнее аргументы. Команда add требует один аргумент.");
+            System.out.println("Invalid number of arguments: expected 0 and fields below");
         }
         commandReceiver.add();
     }
 
     @Override
     protected void writeInfo() {
-        System.out.println("Команда add добавляет новый элемент в коллекцию");
+        System.out.println("The add command adds a new item to the collection");
     }
 }

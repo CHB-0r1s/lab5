@@ -16,7 +16,7 @@ public class History extends Command{
     protected void execute(String[] args) {
         if (args.length > 1) {
             System.out.println(Arrays.toString(args));
-            System.out.println("Введены лишнее аргументы. Команда history не требует аргументов.");
+            System.out.println("Invalid number of arguments: expected 0");
         }
         commandReceiver.history();
 
@@ -24,6 +24,6 @@ public class History extends Command{
 
     @Override
     protected void writeInfo() {
-        System.out.println("Команда history выводит последние 11 команд.");
+        System.out.println("The history command outputs the last 11 commands.");
     }
 }

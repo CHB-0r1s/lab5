@@ -16,7 +16,7 @@ public class MaxByMeleeWeapon extends Command{
     protected void execute(String[] args) {
         if (args.length > 1) {
             System.out.println(Arrays.toString(args));
-            System.out.println("Введены лишнее аргументы или лишние пробелы. Команда max_by_melee_weapon не требует аргументов.");
+            System.out.println("Invalid number of arguments: expected 0");
         }
         commandReceiver.max_by_melee_weapon();
 
@@ -24,7 +24,7 @@ public class MaxByMeleeWeapon extends Command{
 
     @Override
     protected void writeInfo() {
-        System.out.println("Команда max_by_melee_weapon выводит любой объект из коллекции, " +
-                "значение поля meleeWeapon которого является максимальным");
+        System.out.println("The max_by_melee_weapon command outputs any object from the collection, " +
+                "the value of the MeleeWeapon field of which is the maximum");
     }
 }

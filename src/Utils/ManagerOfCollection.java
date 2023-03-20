@@ -21,10 +21,10 @@ public class ManagerOfCollection {
     }
 
     public static void getInformationAbout() {
-        System.out.println("Информация о коллекции: ");
-        System.out.println("Тип коллекции - " + myCollection.getClass().getName());
-        System.out.println("Дата создания коллекции - " + dateOfCreate);
-        System.out.println("Количество элементов - " + myCollection.size());
+        System.out.println("Information about the collection:");
+        System.out.println("Collection Type - " + myCollection.getClass().getName());
+        System.out.println("Date the collection was created - " + dateOfCreate);
+        System.out.println("Number of elements - " + myCollection.size());
         System.out.println("_________________________________________________________\n");
     }
 
@@ -38,16 +38,16 @@ public class ManagerOfCollection {
 
     public static void show() {
         for (SpaceMarine spaceMarine: myCollection) {
-            System.out.println("ID объекта - " + spaceMarine.getId());
-            System.out.println("Имя объекта - " + spaceMarine.getName());
-            System.out.println("Координата X объекта - " + spaceMarine.getCoordinates().getX());
-            System.out.println("Координата Y объекта - " + spaceMarine.getCoordinates().getY());
-            System.out.println("Дата и время создания объекта - " + spaceMarine.getCreationDate());
-            System.out.println("Здоровье объекта- " + spaceMarine.getHealth());
-            System.out.println("Категория объекта- " + spaceMarine.getCategory());
-            System.out.println("Оружие объекта- " + spaceMarine.getWeaponType());
-            System.out.println("Оружие ближнего боя объекта - " + spaceMarine.getMeleeWeapon());
-            System.out.println("Расположение объекта- " + spaceMarine.getChapter().getName() + ":" + spaceMarine.getChapter().getParentLegion());
+            System.out.println("Object ID - " + spaceMarine.getId());
+            System.out.println("Object name - " + spaceMarine.getName());
+            System.out.println("The X coordinate of the object - " + spaceMarine.getCoordinates().getX());
+            System.out.println("The Y coordinate of the object - " + spaceMarine.getCoordinates().getY());
+            System.out.println("Date and time of object creation - " + spaceMarine.getCreationDate());
+            System.out.println("Object health - " + spaceMarine.getHealth());
+            System.out.println("Object category - " + spaceMarine.getCategory());
+            System.out.println("Object's weapon - " + spaceMarine.getWeaponType());
+            System.out.println("Melee weapons of the object - " + spaceMarine.getMeleeWeapon());
+            System.out.println("Location of the object - " + spaceMarine.getChapter().getName() + ":" + spaceMarine.getChapter().getParentLegion());
             System.out.println("_________________________________________________________\n");
         }
     }
@@ -100,7 +100,7 @@ public class ManagerOfCollection {
                     }
                 }
         );
-        System.out.println("Найдено и удалено " + x + " элементов.");
+        System.out.println(x + "items found and removed.");
     }
 
     public static void remove_lower(SpaceMarine spaceMarine) {
@@ -114,7 +114,7 @@ public class ManagerOfCollection {
                     }
                 }
         );
-        System.out.println("Найдено и удалено " + x + " элементов.");
+        System.out.println(x + "items found and removed.");
     }
 
     public static void save() throws IOException {
@@ -204,7 +204,7 @@ public class ManagerOfCollection {
                     }
                 }
         );
-        System.out.println("Найдено и удалено " + x + " элементов.");
+        System.out.println(x + "elements found and removed.");
     }
 
     public static void max_by_melee_weapon() {
@@ -223,16 +223,16 @@ public class ManagerOfCollection {
         for (SpaceMarine spaceMarine: myCollection) {
             assert finalMaxMeleeWeapon != null;
             if (Objects.equals(spaceMarine.getMeleeWeapon().toString(), finalMaxMeleeWeapon.toString())) {
-                System.out.println("ID объекта - " + spaceMarine.getId());
-                System.out.println("Имя объекта - " + spaceMarine.getName());
-                System.out.println("Координата X объекта - " + spaceMarine.getCoordinates().getX());
-                System.out.println("Координата Y объекта - " + spaceMarine.getCoordinates().getY());
-                System.out.println("Дата и время создания объекта - " + spaceMarine.getCreationDate());
-                System.out.println("Здоровье объекта- " + spaceMarine.getHealth());
-                System.out.println("Категория объекта- " + spaceMarine.getCategory());
-                System.out.println("Оружие объекта- " + spaceMarine.getWeaponType());
-                System.out.println("Оружие ближнего боя объекта - " + spaceMarine.getMeleeWeapon());
-                System.out.println("Расположение объекта- " + spaceMarine.getChapter().getName() + ":" + spaceMarine.getChapter().getParentLegion());
+                System.out.println("Object's ID - " + spaceMarine.getId());
+                System.out.println("Object's name - " + spaceMarine.getName());
+                System.out.println("The X coordinate of the object - " + spaceMarine.getCoordinates().getX());
+                System.out.println("The Y coordinate of the object -" + spaceMarine.getCoordinates().getY());
+                System.out.println("Date and time of object creation - " + spaceMarine.getCreationDate());
+                System.out.println("Object's health - " + spaceMarine.getHealth());
+                System.out.println("Object's category - " + spaceMarine.getCategory());
+                System.out.println("Object's weapon - " + spaceMarine.getWeaponType());
+                System.out.println("Melee weapons of the object - " + spaceMarine.getMeleeWeapon());
+                System.out.println("Location of the object - " + spaceMarine.getChapter().getName() + ":" + spaceMarine.getChapter().getParentLegion());
                 System.out.println("_________________________________________________________\n");
                 break;
             }
@@ -246,8 +246,8 @@ public class ManagerOfCollection {
         }
 
         for (Chapter chapter: setOfChapter) {
-            System.out.println("name уникального chapter: " + chapter.getName());
-            System.out.println("parentLegion уникального chapter: " + chapter.getParentLegion());
+            System.out.println("name of the unique chapter:" + chapter.getName());
+            System.out.println("parentLegion of the unique chapter: " + chapter.getParentLegion());
 
         }
     }
@@ -291,7 +291,7 @@ public class ManagerOfCollection {
                     }
                     catch (Exception exception) {
                         //exception.printStackTrace();
-                        System.out.println("Невалидные данные в указанном файле");
+                        System.out.println("Invalid data in the specified file");
                     }
                     if (elemCounter == 10) {
 

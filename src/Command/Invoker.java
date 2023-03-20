@@ -16,10 +16,10 @@ public class Invoker {
                 invokerListOfCommand.add(command_name[0]);
                 command.execute(command_name);
             } else {
-                System.out.println("Вы не ввели команду.");
+                System.out.println("You have not entered a command.");
             }
         } catch (IllegalStateException | NullPointerException ex) {
-            System.out.println("Не существует команды " + command_name[0] + ". Для справки используйте – help");
+            System.out.println("There is no command " + command_name[0] + ". For reference, use – help");
         }
     }
 }

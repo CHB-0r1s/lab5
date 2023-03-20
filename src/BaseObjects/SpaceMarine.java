@@ -5,15 +5,15 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class SpaceMarine implements Comparable<SpaceMarine>{
-    private Long id; //Значение этого поля должно быть уникальным
+    private Long id;
     private String name;
     private Coordinates coordinates;
     private ZonedDateTime creationDate;
     private float health;
-    private AstartesCategory category; //Поле не может быть null
-    private Weapon weaponType; //Поле может быть null
-    private MeleeWeapon meleeWeapon; //Поле не может быть null
-    private Chapter chapter; //Поле может быть null
+    private AstartesCategory category;
+    private Weapon weaponType;
+    private MeleeWeapon meleeWeapon;
+    private Chapter chapter;
 
     public SpaceMarine(String name, Coordinates coordinates, float health, AstartesCategory category, Weapon weaponType, MeleeWeapon meleeWeapon, Chapter chapter) {
         this.id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
@@ -140,12 +140,12 @@ public class SpaceMarine implements Comparable<SpaceMarine>{
                 return true;
             }
             else {
-                System.out.println("ID должен быть положительным, в пределах формата Long");
+                System.out.println("The ID must be positive, within the Long format");
                 return false;
             }
         }
         else {
-            System.out.println("ID должен быть ненулевым числом типа Long.");
+            System.out.println("The ID must be a non-zero number of type Long.");
             return false;
         }
     }
@@ -156,12 +156,12 @@ public class SpaceMarine implements Comparable<SpaceMarine>{
                 return true;
             }
             else {
-                System.out.println("Имя не должно быть пустым");
+                System.out.println("The name should not be empty");
                 return false;
             }
         }
         else {
-            System.out.println("Имя не должно быть null");
+            System.out.println("The name must not be null");
             return false;
         }
     }
@@ -172,12 +172,12 @@ public class SpaceMarine implements Comparable<SpaceMarine>{
                 return true;
             }
             else {
-                System.out.println("Координата X не может быть null");
+                System.out.println("The X coordinate cannot be null");
                 return false;
             }
         }
         else {
-            System.out.println("Координаты не могут быть null");
+            System.out.println("Coordinates cannot be null");
             return false;
         }
     }
@@ -187,7 +187,7 @@ public class SpaceMarine implements Comparable<SpaceMarine>{
             return true;
         }
         else {
-            System.out.println("Дата создания не может быть null");
+            System.out.println("The creation date cannot be null");
             return false;
         }
     }
@@ -197,7 +197,7 @@ public class SpaceMarine implements Comparable<SpaceMarine>{
             return true;
         }
         else {
-            System.out.println("Показатель здоровья должен быть больше 0");
+            System.out.println("The health indicator must be greater than 0");
             return false;
         }
     }
@@ -207,7 +207,7 @@ public class SpaceMarine implements Comparable<SpaceMarine>{
             return true;
         }
         else {
-            System.out.println("Категория не может быть null");
+            System.out.println("The category cannot be null");
             return false;
         }
     }
@@ -217,7 +217,7 @@ public class SpaceMarine implements Comparable<SpaceMarine>{
             return true;
         }
         else {
-            System.out.println("Ближнее оружие не может быть null");
+            System.out.println("Melee weapons cannot be null");
             return false;
         }
     }

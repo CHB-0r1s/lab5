@@ -1,7 +1,7 @@
 package BaseObjects;
 
 public class Coordinates {
-    private Float x; //Поле не может быть null
+    private Float x;
     private double y;
 
     public Coordinates(Float x, double y) {

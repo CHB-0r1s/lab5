@@ -14,17 +14,17 @@ public class MyAstartesCategoryReader {
     public static AstartesCategory read(String consoleMessage, boolean nullable) {
         Scanner scanner = new Scanner(System.in);  // TODO: Проверка вхождения в енум
 
-        System.out.print(consoleMessage + " Выберите категорию из представленных("
+            System.out.print(consoleMessage + " Select a category from the presented("
                 + Arrays.asList(AstartesCategory.values()) + "): ");
         String inputString = "";
         while(!nullable && inputString.equals("")) {
             inputString = scanner.nextLine().trim();
-            if (inputString.equals("")) {System.out.print("Данное поле не может быть пустым. " + consoleMessage);}
+            if (inputString.equals("")) {System.out.print("This field cannot be empty. " + consoleMessage);}
             try {
                 Enum.valueOf(AstartesCategory.class, inputString);
             }
             catch (Exception ex) {
-                System.out.println("Неверное имя категории объекта");
+                System.out.println("Invalid object category name");
                 inputString = "";
             }
         }

@@ -12,7 +12,7 @@ public class MyPrimDoubleReader {
                 result = Double.parseDouble(scanner.nextLine().trim());
                 break;
             } catch (NumberFormatException ex) {
-                System.out.print("Вы должны ввести число (double), попробуйте снова: ");
+                System.out.print("You have to enter a number (double), try again: ");
             }
         }
         return result;

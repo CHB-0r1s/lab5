@@ -13,14 +13,14 @@ public class Exit extends Command{
         @Override
         protected void execute(String[] args) {
             if (args.length > 1) {
-                System.out.println("Введены лишнее аргументы. Команда exit не требует аргументов.");
+                System.out.println("Invalid number of arguments: expected 0");
             }
             commandReceiver.exit();
         }
 
         @Override
         protected void writeInfo() {
-            System.out.println("Команда exit завершает программу бещ сохранения в файл");
+            System.out.println("The exit command terminates the program without saving to a file");
         }
 
 

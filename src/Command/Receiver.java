@@ -30,7 +30,7 @@ public class Receiver {
 
     public void add() {
         SpaceMarine spaceMarine = SpaceMarineCreator.createSpaceMarine();
-        System.out.println("Создан элемент с id " + spaceMarine.getId());
+        System.out.println("An element with ID has been created: " + spaceMarine.getId());
         ManagerOfCollection.add(spaceMarine);
     }
 
@@ -39,9 +39,9 @@ public class Receiver {
         try {
             ID = Long.parseLong(id);
             if (ManagerOfCollection.elemExist(ID)) { ManagerOfCollection.update(SpaceMarineCreator.createSpaceMarine(), ID); }
-            else {System.out.println("Элемента с таким ID нет в коллекции.");}
+            else {System.out.println("The item with this ID is not in the collection.");}
         } catch (NumberFormatException e) {
-            System.out.println("Команда не выполнена. Вы ввели некорректный аргумент.");
+            System.out.println("The command is not executed. You have entered an incorrect argument.");
         }
     }
 
@@ -93,7 +93,7 @@ public class Receiver {
                         if (line != null) {
                             line = bufferedReader.readLine();
                             parameters.add(line);
-                        } else { System.out.println("Не хватает параметров для создания объекта."); break; }
+                        } else { System.out.println("There are not enough parameters to create an object."); break; }
                     }
                     SpaceMarine spaceMarine = SpaceMarineCreator.createScriptSpaceMarine(parameters);
                     switch (command.split(" ")[0]) {
@@ -103,7 +103,7 @@ public class Receiver {
                         case "remove_lower" -> ManagerOfCollection.remove_lower(spaceMarine);
                     }
                 } else if (line.split(" ")[0].equals("execute_script")
-                        && line.split(" ")[1].equals(ExecuteScript.getPath())) { System.out.println("Пресечена попытка рекурсивного вызова скрипта."); }
+                        && line.split(" ")[1].equals(ExecuteScript.getPath())) { System.out.println("An attempt to recursively call the script was stopped."); }
                 else { commandInvoker.Invoke(line.split(" ")); }
                 }
             }
@@ -120,7 +120,7 @@ public class Receiver {
             }
         }
         else {
-            System.out.println("Недостаточно элементов для вывода 11 последних элементов. Текущее количество элементов: " + commandInvoker.invokerListOfCommand.size());
+            System.out.println("There are not enough elements to output the last 11 elements. Current number of items: " + commandInvoker.invokerListOfCommand.size());
         }
     }
 

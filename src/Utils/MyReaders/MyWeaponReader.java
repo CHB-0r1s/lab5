@@ -13,19 +13,19 @@ public class MyWeaponReader {
     public static Weapon read(String consoleMessage, boolean nullable) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print(consoleMessage + " Выберите категорию из представленных("
+        System.out.print(consoleMessage + " Select a category from the presented("
                 + Arrays.asList(Weapon.values()) + "): ");
         String inputString = "";
         while(inputString.equals("")) {
             inputString = scanner.nextLine().trim();
-            if (inputString.equals("") && !nullable) {System.out.print("Данное поле не может быть пустым. " + consoleMessage);}
+            if (inputString.equals("") && !nullable) {System.out.print("This field cannot be empty." + consoleMessage);}
             else {
                 if (inputString.equals("")) {return Weapon.NULL;}
                 try {
                     Enum.valueOf(Weapon.class, inputString);
                 }
                 catch (Exception ex) {
-                    System.out.println("Неверное имя категории объекта");
+                    System.out.println("Invalid object category name");
                     inputString = "";
                 }
             }

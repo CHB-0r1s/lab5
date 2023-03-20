@@ -12,12 +12,12 @@ public class Update extends Command {
 
     @Override
     protected void execute(String[] args) {
-        if (args.length == 2) { commandReceiver.update(args[0]); }
-        else { System.out.println("Некорректное количество аргументов или лишние пробелы. Для справки напишите help."); }
+        if (args.length == 2) { commandReceiver.update(args[1]); }
+        else { System.out.println("Invalid number of arguments: expected 1, found 0."); }
     }
 
     @Override
     protected void writeInfo() {
-        System.out.println("Команда update обновляет значение элемента коллекции, id которого равен заданному");
+        System.out.println("The update command updates the value of the collection element whose id is equal to the specified one.");
     }
 }

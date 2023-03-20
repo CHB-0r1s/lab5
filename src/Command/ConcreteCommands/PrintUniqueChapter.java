@@ -16,7 +16,7 @@ public class PrintUniqueChapter extends Command{
     protected void execute(String[] args) {
         if (args.length > 1) {
             System.out.println(Arrays.toString(args));
-            System.out.println("Введены лишнее аргументы или лишние пробелы. Команда print_unique_chapter не требует аргументов.");
+            System.out.println("Invalid number of arguments: expected 0");
         }
         commandReceiver.print_unique_chapter();
 
@@ -24,6 +24,6 @@ public class PrintUniqueChapter extends Command{
 
     @Override
     protected void writeInfo() {
-        System.out.println("Команда print_unique_chapter выводит уникальные значения поля chapter всех элементов в коллекции");
+        System.out.println("The print_unique_chapter command outputs the unique values of the chapter field of all items in the collection");
     }
 }

@@ -13,13 +13,13 @@ public class Show extends Command {
     @Override
     protected void execute(String[] args) {
         if (args.length > 1) {
-            System.out.println("Введены лишнее аргументы. Команда show не требует аргументов.");
+            System.out.println("Invalid number of arguments: expected 0");
         }
         commandReceiver.show();
     }
 
     @Override
     protected void writeInfo() {
-        System.out.println("Команда show выводит все элементы коллекции в строковом представлении");
+        System.out.println("The show command outputs all the elements of the collection in a string representation");
     }
 }

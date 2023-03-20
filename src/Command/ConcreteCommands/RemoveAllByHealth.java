@@ -13,7 +13,7 @@ public class RemoveAllByHealth extends Command {
     @Override
     protected void execute(String[] args) {
         if (args.length == 2) { commandReceiver.remove_all_by_health(args[1]); }
-        else { System.out.println("Некорректное количество аргументов или лишние пробелы. Для справки напишите help."); }
+        else { System.out.println("Invalid number of arguments: expected 1, found 0."); }
     }
 
     @Override

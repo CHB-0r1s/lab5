@@ -12,7 +12,7 @@ public class MyFloatReader {
                 result = Float.parseFloat(scanner.nextLine().trim());
                 break;
             } catch (NumberFormatException ex) {
-                System.out.print("Вы должны ввести число (float), попробуйте снова: ");
+                System.out.print("You have to enter a number (float), try again: ");
             }
         }
         return result;

@@ -15,13 +15,13 @@ public class Save extends Command {
     @Override
     protected void execute(String[] args) throws IOException {
         if (args.length > 1) {
-            System.out.println("Введен не нужный аргумент. Команда приведена к базовой команде save.");
+            System.out.println("Invalid number of arguments: expected 0");
         }
         commandReceiver.save();
     }
 
     @Override
     protected void writeInfo() {
-        System.out.println("Команда save – сохранить коллекцию в файл.");
+        System.out.println("The save command is to save the collection to a file.");
     }
 }

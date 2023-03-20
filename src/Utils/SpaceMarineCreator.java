@@ -17,15 +17,15 @@ public class SpaceMarineCreator {
     static String chapterName;
     static String parentLegion;
     public static SpaceMarine createSpaceMarine() {
-        String name = MyStringReader.read("¬ведите им€ объекта ", false);
-        Float x = MyFloatReader.read("¬ведите координату x (float) ");
-        double y = MyPrimDoubleReader.read("¬ведите координату y (double) ");
-        float health = MyPrimFloatReader.read("¬ведите здоровье объекта (float) ", ">0");
-        AstartesCategory astartesCategory = MyAstartesCategoryReader.read("¬ведите категорию объекта.", false);
-        Weapon weapon = MyWeaponReader.read("¬ведите тип оружи€ ", true);
-        MeleeWeapon meleeWeapon = MyMeleeWeaponReader.read("¬ведите тип оружи€ ближнего бо€ ", false);
-        String chapterName = MyStringReader.read("¬ведите название части ", false);
-        String parentLegion = MyStringReader.read("¬ведите название parentLegion ", true);
+        String name = MyStringReader.read("Enter the name of the object ", false);
+        Float x = MyFloatReader.read("Enter the x (float) coordinate ");
+        double y = MyPrimDoubleReader.read("Enter the y (double) coordinate ");
+        float health = MyPrimFloatReader.read("Enter the health of the object (float) ", ">0");
+        AstartesCategory astartesCategory = MyAstartesCategoryReader.read("Enter the category of the object.", false);
+        Weapon weapon = MyWeaponReader.read("Enter the type of weapon", true);
+        MeleeWeapon meleeWeapon = MyMeleeWeaponReader.read("Enter the type of melee weapon", false);
+        String chapterName = MyStringReader.read("Enter the name of the part", false);
+        String parentLegion = MyStringReader.read("Enter the parentLegion name", true);
 
         return new SpaceMarine(name, new Coordinates(x, y), health, astartesCategory, weapon, meleeWeapon, new Chapter(chapterName, parentLegion));
     }
@@ -46,7 +46,7 @@ public class SpaceMarineCreator {
                     weapon,
                     MeleeWeapon.valueOf(parameters.get(6)),
                     chapter);
-        } else { System.out.println("ќдин из параметров не соответствует требовани€м."); }
+        } else { System.out.println("One of the parameters does not meet the requirements."); }
 
         return null;
     }

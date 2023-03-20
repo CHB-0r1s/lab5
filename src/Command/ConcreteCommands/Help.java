@@ -15,7 +15,7 @@ public class Help extends Command{
     @Override
     protected void execute(String[] args) {
         if (args.length > 1) {
-            System.out.println("¬ведены лишнее аргументы.  оманда help не требует аргументов.");
+            System.out.println("Invalid number of arguments: expected 0");
         }
         commandReceiver.help();
 
@@ -23,6 +23,6 @@ public class Help extends Command{
 
     @Override
     protected void writeInfo() {
-        System.out.println(" оманда help выводит справку по всем доступным командам");
+        System.out.println("The help command displays help for all available commands");
     }
 }

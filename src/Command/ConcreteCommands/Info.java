@@ -13,13 +13,13 @@ public class Info extends Command {
     @Override
     protected void execute(String[] args) {
         if (args.length > 1) {
-            System.out.println("Введены лишнее аргументы. Команда info не требует аргументов.");
+            System.out.println("Invalid number of arguments: expected 0");
         }
         commandReceiver.info();
     }
 
     @Override
     protected void writeInfo() {
-        System.out.println("Команда info выводит информацию о коллекции (тип, дата инициализации, количество элементов и т.д.)");
+        System.out.println("The info command displays information about the collection (type, initialization date, number of items, etc.)");
     }
 }

@@ -13,13 +13,13 @@ public class RemoveGreater extends Command {
     @Override
     protected void execute(String[] args) {
         if (args.length > 2) {
-            System.out.println("Введен не нужный аргумент. Команда приведена к базовой команде remove_greater.");
+            System.out.println("Invalid number of arguments: expected 0");
         }
         commandReceiver.remove_greater();
     }
 
     @Override
     protected void writeInfo() {
-        System.out.println("Команда remove_greater – удалить из коллекции все элементы, превышающие заданный.");
+        System.out.println("The remove_greater command is to remove all items from the collection that exceed the specified one.");
     }
 }

@@ -12,12 +12,14 @@ public class Clear extends Command {
 
     @Override
     protected void execute(String[] args) {
-        if (args.length > 1) { commandReceiver.clear(); }
-        else { System.out.println("Введены лишнее аргументы. Команда clear не требует аргументов."); }
+        if (args.length > 1) {
+            System.out.println("Invalid number of arguments: expected 0");
+        }
+        commandReceiver.clear();
     }
 
     @Override
     protected void writeInfo() {
-        System.out.println("Команда clear очищает коллекцию");
+        System.out.println("The clear command clears the collection.");
     }
 }

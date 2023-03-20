@@ -13,13 +13,13 @@ public class RemoveLower extends Command {
     @Override
     protected void execute(String[] args) {
         if (args.length > 2) {
-            System.out.println("Введен не нужный аргумент. Команда приведена к базовой команде remove_lower.");
+            System.out.println("Invalid number of arguments: expected 0");
         }
         commandReceiver.remove_lower();
     }
 
     @Override
     protected void writeInfo() {
-        System.out.println("Команда remove_lower – удалить из коллекции все элементы, меньшие, чем заданный.");
+        System.out.println("The remove_lower command is to remove all items smaller than the specified one from the collection.");
     }
 }

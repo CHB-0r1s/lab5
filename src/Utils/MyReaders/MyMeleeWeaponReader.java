@@ -11,19 +11,19 @@ public class MyMeleeWeaponReader {
         return Arrays.stream(MeleeWeapon.values()).anyMatch((meleeWeapon) -> meleeWeapon.name().equals(toContains));
     }
     public static MeleeWeapon read(String consoleMessage, boolean nullable) {
-        Scanner scanner = new Scanner(System.in);  // TODO: Проверка вхождения в енум
+        Scanner scanner = new Scanner(System.in);  // TODO: inEnum Checking
 
-        System.out.print(consoleMessage + " Выберите оружие ближнего боя из представленных("
+        System.out.print(consoleMessage + " Choose a melee weapon from the presented("
                 + Arrays.asList(MeleeWeapon.values()) + "): ");
         String inputString = "";
         while(!nullable && inputString.equals("")) {
             inputString = scanner.nextLine().trim();
-            if (inputString.equals("")) {System.out.print("Данное поле не может быть пустым. " + consoleMessage);}
+            if (inputString.equals("")) {System.out.print("This field cannot be empty. " + consoleMessage);}
             try {
                 Enum.valueOf(MeleeWeapon.class, inputString);
             }
             catch (Exception ex) {
-                System.out.println("Неверное имя категории объекта");
+                System.out.println("Invalid object category name");
                 inputString = "";
             }
         }
