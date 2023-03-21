@@ -117,7 +117,7 @@ public class ManagerOfCollection {
         System.out.println(x + "items found and removed.");
     }
 
-    public static void save() throws IOException {
+    public static void  save() throws IOException {
         try {
             XMLOutputFactory output = XMLOutputFactory.newInstance();
             XMLStreamWriter writer = output.createXMLStreamWriter(new BufferedOutputStream(new FileOutputStream("result.xml")));
@@ -277,7 +277,8 @@ public class ManagerOfCollection {
                     try {
                     switch (elemCounter) {
                             case 0 -> id = Long.parseLong(xmlr.getText());
-                            case 1 -> name = xmlr.getText();
+                            case 1 -> name = xmlr.getText().replaceAll("&lt;", "<").
+                                    replaceAll("&gt;", ">");
                             case 2 -> x = (Float) Float.parseFloat(xmlr.getText());
                             case 3 -> y = Double.parseDouble(xmlr.getText());
                             case 4 -> creationDate = ZonedDateTime.parse(xmlr.getText());
