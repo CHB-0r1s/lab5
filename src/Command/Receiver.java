@@ -38,7 +38,10 @@ public class Receiver {
         long ID;
         try {
             ID = Long.parseLong(id);
-            if (ManagerOfCollection.elemExist(ID)) { ManagerOfCollection.update(SpaceMarineCreator.createSpaceMarine(), ID); }
+            if (ManagerOfCollection.elemExist(ID)) {
+                ManagerOfCollection.update(SpaceMarineCreator.createSpaceMarine(), ID);
+                System.out.println("Update completed");
+            }
             else {System.out.println("The item with this ID is not in the collection.");}
         } catch (NumberFormatException e) {
             System.out.println("The command is not executed. You have entered an incorrect argument.");
