@@ -5,6 +5,7 @@ import jdk.jshell.EvalException;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class MyAstartesCategoryReader {
@@ -21,14 +22,14 @@ public class MyAstartesCategoryReader {
             inputString = scanner.nextLine().trim();
             if (inputString.equals("")) {System.out.print("This field cannot be empty. " + consoleMessage);}
             try {
-                Enum.valueOf(AstartesCategory.class, inputString);
+                Enum.valueOf(AstartesCategory.class, inputString.toUpperCase(Locale.ROOT));
             }
             catch (Exception ex) {
                 System.out.println("Invalid object category name");
                 inputString = "";
             }
         }
-        return Enum.valueOf(AstartesCategory.class, inputString);
+        return Enum.valueOf(AstartesCategory.class, inputString.toUpperCase(Locale.ROOT));
     }
 }
 

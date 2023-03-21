@@ -4,6 +4,7 @@ import BaseObjects.AstartesCategory;
 import BaseObjects.Weapon;
 
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class MyWeaponReader {
@@ -22,7 +23,7 @@ public class MyWeaponReader {
             else {
                 if (inputString.equals("")) {return Weapon.NULL;}
                 try {
-                    Enum.valueOf(Weapon.class, inputString);
+                    Enum.valueOf(Weapon.class, inputString.toUpperCase(Locale.ROOT));
                 }
                 catch (Exception ex) {
                     System.out.println("Invalid object category name");
@@ -30,7 +31,7 @@ public class MyWeaponReader {
                 }
             }
         }
-        return Enum.valueOf(Weapon.class, inputString);
+        return Enum.valueOf(Weapon.class, inputString.toUpperCase(Locale.ROOT));
     }
 }
 
