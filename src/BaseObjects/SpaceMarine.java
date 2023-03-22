@@ -1,10 +1,14 @@
 package BaseObjects;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.UUID;
 
 public class SpaceMarine implements Comparable<SpaceMarine>{
+    private static long idHelp = 0;
+    public static ArrayList<Long> canceledValuesOfID = new ArrayList<>();
     private Long id;
     private String name;
     private Coordinates coordinates;
@@ -16,7 +20,7 @@ public class SpaceMarine implements Comparable<SpaceMarine>{
     private Chapter chapter;
 
     public SpaceMarine(String name, Coordinates coordinates, float health, AstartesCategory category, Weapon weaponType, MeleeWeapon meleeWeapon, Chapter chapter) {
-        this.id = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+        this.setID();
         this.name = name;
         this.coordinates = coordinates;
         this.creationDate = ZonedDateTime.now();
@@ -28,7 +32,7 @@ public class SpaceMarine implements Comparable<SpaceMarine>{
     }
 
     public SpaceMarine(Long id, String name, Coordinates coordinates, ZonedDateTime creationDate, float health, AstartesCategory category, Weapon weaponType, MeleeWeapon meleeWeapon, Chapter chapter) {
-        this.id = id;
+        this.setID();
         this.name = name;
         this.coordinates = coordinates;
         this.creationDate = creationDate;
@@ -37,6 +41,21 @@ public class SpaceMarine implements Comparable<SpaceMarine>{
         this.weaponType = weaponType;
         this.meleeWeapon = meleeWeapon;
         this.chapter = chapter;
+    }
+
+    private void setID()
+    {
+        this.idHelp++;
+        Collections.sort(canceledValuesOfID);
+        for(long canceledNumber:canceledValuesOfID)
+        {
+            if (idHelp == canceledNumber)
+            {
+                idHelp++;
+            }
+        }
+        this.id = idHelp;
+        canceledValuesOfID.add(id);
     }
 
     public Long getId() {
