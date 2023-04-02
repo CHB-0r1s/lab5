@@ -1,6 +1,7 @@
 package Command;
 
 import BaseObjects.*;
+
 import Command.ConcreteCommands.ExecuteScript;
 import Utils.ManagerOfCollection;
 import Utils.SpaceMarineCreator;
@@ -8,6 +9,9 @@ import Utils.SpaceMarineCreator;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+
 
 public class Receiver {
     private final Invoker commandInvoker;
@@ -65,9 +69,22 @@ public class Receiver {
         ManagerOfCollection.clear();
     }
 
-    public void exit() {
-        //System.out.println("Сохранить вашу коллекцию перед выходом? [yes/no]");
-        // TODO: В следующий раз реализовать превентивное сохранение коллекции
+    public void exit() throws IOException {
+        System.out.println("Save you progress in collection? [yes/no]");
+
+        Scanner exitScanner = new Scanner(System.in);
+        while (true) {
+            if (exitScanner.hasNextLine()) {
+                String ans = exitScanner.nextLine();
+                if (ans.equals("yes")) {
+                    ManagerOfCollection.save();
+                    break;
+                } else if (ans.equals("no")) {
+                    break;
+                }
+                else {System.out.println("Invalid answer. [yes/no]");}
+            }
+        }
         System.out.println("Программа завершает работу, пока-пока");
         System.exit(0);
     }
@@ -116,7 +133,7 @@ public class Receiver {
             throw new RuntimeException(e);
         }
     }
-    public void history() { // TODO вывод меньше чем 11 элементов, обработка попадания history в память
+    public void history() {
         if (commandInvoker.invokerListOfCommand.size() >= 11) {
             for (int i = commandInvoker.invokerListOfCommand.size() - 1; i > commandInvoker.invokerListOfCommand.size() - 11; i--) {
                 System.out.println(commandInvoker.invokerListOfCommand.get(i));

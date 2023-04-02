@@ -3,6 +3,8 @@ package Command.ConcreteCommands;
 import Command.Command;
 import Command.Receiver;
 
+import java.io.IOException;
+
 public class Exit extends Command{
     private final Receiver commandReceiver;
 
@@ -11,7 +13,7 @@ public class Exit extends Command{
         }
 
         @Override
-        protected void execute(String[] args) {
+        protected void execute(String[] args) throws IOException {
             if (args.length > 1) {
                 System.out.println("Invalid number of arguments: expected 0");
             }
