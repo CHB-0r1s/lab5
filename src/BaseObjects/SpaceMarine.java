@@ -1,12 +1,14 @@
 package BaseObjects;
 
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.UUID;
 
-public class SpaceMarine implements Comparable<SpaceMarine>{
+public class SpaceMarine implements Comparable<SpaceMarine>
+{
     private static long idHelp = 0;
     public static ArrayList<Long> canceledValuesOfID = new ArrayList<>();
     private Long id;

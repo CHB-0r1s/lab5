@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 
 
-public class Receiver {
+public class Receiver implements Serializable{
     private final Invoker commandInvoker;
 
     public Receiver(Invoker commandInvoker) {
@@ -124,7 +124,7 @@ public class Receiver {
                     }
                 } else if (line.split(" ")[0].equals("execute_script")
                         && line.split(" ")[1].equals(ExecuteScript.getPath())) { System.out.println("An attempt to recursively call the script was stopped."); }
-                else { commandInvoker.Invoke(line.split(" ")); }
+                else { commandInvoker.invoke(line.split(" ")); }
                 }
             }
         catch (IOException e) {

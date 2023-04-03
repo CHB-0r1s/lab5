@@ -39,7 +39,7 @@ public class Main {
 
         try(Scanner scanner = new Scanner(System.in)) {
             while (scanner.hasNextLine()) {
-                commandInvoker.Invoke(scanner.nextLine().trim().split("\s+"));
+                commandInvoker.invoke(scanner.nextLine().trim().split("\s+"));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
