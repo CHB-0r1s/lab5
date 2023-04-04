@@ -58,10 +58,10 @@ public class Receiver implements Serializable{
             ID = Long.parseLong(id);
             if (ManagerOfCollection.elemExist(ID)) {
                 ManagerOfCollection.remove_by_id(ID);
-                System.out.println("Элемент с ID " + ID + " успешно удален из коллекции.");
-            } else {System.out.println("Элемента с таким ID нет в коллекции.");}
+                System.out.println("Element with ID " + ID + " was deleted successfully");
+            } else {System.out.println("There is no element with such ID in the collection");}
         } catch (NumberFormatException e) {
-            System.out.println("Команда не выполнена. Вы ввели некорректный аргумент.");
+            System.out.println("The command is not executed. You have entered an incorrect argument.");
         }
     }
 
@@ -85,7 +85,7 @@ public class Receiver implements Serializable{
                 else {System.out.println("Invalid answer. [yes/no]");}
             }
         }
-        System.out.println("Программа завершает работу, пока-пока");
+        System.out.println("Program is ending, bye-bye!");
         System.exit(0);
     }
 

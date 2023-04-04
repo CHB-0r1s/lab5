@@ -32,6 +32,16 @@ public class Invoker implements Serializable
         fillHashMap();
         if (command_name.length > 0 && invokerHashMap.get(command_name[0]) != null) {
             Command command = invokerHashMap.get(command_name[0]);
+            switch (command.getClass().getSimpleName().toString())
+            {
+                case "Add":
+                case "RemoveGreater":
+                case "RemoveLower":
+                    command.setSpaceMarineFromClient(); break;
+                case "Update": command.setLongFromClient(); command.setSpaceMarineFromClient(); break;
+                case "RemoveAllByHealth": command.setFloatFromClient(); break;
+                case "RemoveByID": command.setLongFromClient(); break;
+            }
             invokerListOfCommand.add(command_name[0]);
             return command;
         } else if (command_name.length == 0)
