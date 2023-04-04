@@ -29,15 +29,6 @@ public class Server
             {
                 System.out.println(e);
             }
-
-//            BufferedReader reader = new BufferedReader(
-//                    new InputStreamReader(clientSocket.getInputStream()));
-//            String request = reader.readLine();
-//            System.out.println(request);
-//            if (request.equals("exit"))
-//            {
-//                clientSocket.close();
-//            }
         }
     }
 }

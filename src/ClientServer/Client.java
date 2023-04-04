@@ -24,6 +24,7 @@ public class Client
                     Command command = commandInvoker.invokeForClient(scanner.nextLine().trim().split("\s+"));
                     ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
                     objectOutputStream.writeObject(command);
+                    //sends without string after command
                     writer.newLine();
                     writer.flush();
                 }

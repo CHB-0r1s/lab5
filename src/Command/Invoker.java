@@ -30,16 +30,16 @@ public class Invoker implements Serializable
 
     public Command invokeForClient(String[] command_name) throws IOException {
         fillHashMap();
-        try {
-            if (command_name.length > 0) {
-                Command command = invokerHashMap.get(command_name[0]);
-                invokerListOfCommand.add(command_name[0]);
-                return command;
-            } else {
-                System.out.println("You have not entered a command.");
-                return null;
-            }
-        } catch (IllegalStateException | NullPointerException ex) {
+        if (command_name.length > 0 && invokerHashMap.get(command_name[0]) != null) {
+            Command command = invokerHashMap.get(command_name[0]);
+            invokerListOfCommand.add(command_name[0]);
+            return command;
+        } else if (command_name.length == 0)
+        {
+            System.out.println("You have not entered a command.");
+            return null;
+        } else
+        {
             System.out.println("There is no command " + command_name[0] + ". For reference, use – help");
             return null;
         }
