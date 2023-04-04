@@ -18,25 +18,34 @@ public class Client
             Invoker commandInvoker = new Invoker();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(clientSocket.getOutputStream()));
-
-            try(Scanner scanner = new Scanner(System.in)) {
-                while (scanner.hasNextLine()) {
-                    Command command = commandInvoker.invokeForClient(scanner.nextLine().trim().split("\s+"));
-                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
-                    objectOutputStream.writeObject(command);
-                    //sends without string after command
-                    writer.newLine();
-                    writer.flush();
-                }
-            }catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+            sendingCommand(commandInvoker, clientSocket, writer);
         }
         catch (UnknownHostException e)
         {
             System.out.println("No connection.");
         } catch (IOException e)
         {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static void sendingCommand(Invoker commandInvoker, Socket clientSocket, BufferedWriter writer)
+    {
+        try(Scanner scanner = new Scanner(System.in)) {
+            while (scanner.hasNextLine()) {
+                Command command = commandInvoker.invokeForClient(scanner.nextLine().trim().split("\s+"));
+                if (command == null)
+                {
+                    sendingCommand(commandInvoker, clientSocket, writer);
+                    return;
+                }
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+                objectOutputStream.writeObject(command);
+                //sends without string after command
+                writer.newLine();
+                writer.flush();
+            }
+        }catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
