@@ -1,5 +1,6 @@
 package ClientServer;
 
+import BaseObjects.SpaceMarine;
 import Command.Command;
 
 import java.io.*;
@@ -23,11 +24,20 @@ public class Server
             try
             {
                 Command command = (Command) objectInputStream.readObject();
-                System.out.println(command);
+                // команда реализовалась
+                SpaceMarine spaceMarineFromClient = command.getSpaceMarineFromClient();
+                if (spaceMarineFromClient != null) {
+                    // команда с креатором
+                }
+                System.out.println(spaceMarineFromClient);
             }
             catch (ClassNotFoundException e)
             {
                 System.out.println(e);
+            }
+
+            catch (IllegalStateException | NullPointerException ex) {
+                System.out.println("There is no command " + ". For reference, use Ц help");
             }
         }
     }

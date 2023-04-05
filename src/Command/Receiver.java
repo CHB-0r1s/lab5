@@ -32,18 +32,16 @@ public class Receiver implements Serializable{
         ManagerOfCollection.show();
     }
 
-    public void add() {
-        SpaceMarine spaceMarine = SpaceMarineCreator.createSpaceMarine();
-        System.out.println("An element with ID has been created: " + spaceMarine.getId());
-        ManagerOfCollection.add(spaceMarine);
+    public void add(SpaceMarine spaceMarineFromClient) {
+        System.out.println("An element with ID has been created: " + spaceMarineFromClient.getId());
+        ManagerOfCollection.add(spaceMarineFromClient);
     }
 
-    public void update(String id) {
-        long ID;
+    public void update(Long id, SpaceMarine spaceMarineFromClient) {
         try {
-            ID = Long.parseLong(id);
+            long ID = id;
             if (ManagerOfCollection.elemExist(ID)) {
-                ManagerOfCollection.update(SpaceMarineCreator.createSpaceMarine(), ID);
+                ManagerOfCollection.update(spaceMarineFromClient, ID);
                 System.out.println("Update completed");
             }
             else {System.out.println("The item with this ID is not in the collection.");}
@@ -52,10 +50,9 @@ public class Receiver implements Serializable{
         }
     }
 
-    public void remove_by_id(String id) {
-        long ID;
+    public void remove_by_id(Long id) {
         try {
-            ID = Long.parseLong(id);
+            long ID = id;
             if (ManagerOfCollection.elemExist(ID)) {
                 ManagerOfCollection.remove_by_id(ID);
                 System.out.println("Element with ID " + ID + " was deleted successfully");
@@ -89,12 +86,12 @@ public class Receiver implements Serializable{
         System.exit(0);
     }
 
-    public void remove_greater() {
-        ManagerOfCollection.remove_greater(SpaceMarineCreator.createSpaceMarine());
+    public void remove_greater(SpaceMarine spaceMarineFromClient) {
+        ManagerOfCollection.remove_greater(spaceMarineFromClient);
     }
 
-    public void remove_lower() {
-        ManagerOfCollection.remove_lower(SpaceMarineCreator.createSpaceMarine());
+    public void remove_lower(SpaceMarine spaceMarineFromClient) {
+        ManagerOfCollection.remove_lower(spaceMarineFromClient);
     }
 
     public void save() throws IOException {
@@ -144,9 +141,8 @@ public class Receiver implements Serializable{
         }
     }
 
-    public void remove_all_by_health(String health) {
-        double HP;
-        HP = Double.parseDouble(health);
+    public void remove_all_by_health(Double health) {
+        double HP = health;
 
         ManagerOfCollection.remove_all_by_health(HP);
     }

@@ -39,7 +39,7 @@ public class Invoker implements Serializable
                 case "RemoveLower":
                     command.setSpaceMarineFromClient(); break;
                 case "Update": command.setLongFromClient(); command.setSpaceMarineFromClient(); break;
-                case "RemoveAllByHealth": command.setFloatFromClient(); break;
+                case "RemoveAllByHealth": command.setDoubleFromClient(); break;
                 case "RemoveByID": command.setLongFromClient(); break;
             }
             invokerListOfCommand.add(command_name[0]);
