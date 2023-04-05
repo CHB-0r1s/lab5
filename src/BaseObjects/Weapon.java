@@ -1,6 +1,9 @@
 package BaseObjects;
 
-public enum Weapon {
+import java.io.Serializable;
+
+public enum Weapon implements Serializable
+{
     HEAVY_BOLTGUN,
     BOLT_PISTOL,
     FLAMER,

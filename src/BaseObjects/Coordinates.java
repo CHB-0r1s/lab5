@@ -1,6 +1,9 @@
 package BaseObjects;
 
-public class Coordinates {
+import java.io.Serializable;
+
+public class Coordinates implements Serializable
+{
     private Float x;
     private double y;
 
