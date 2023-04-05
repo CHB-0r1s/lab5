@@ -1,6 +1,9 @@
 package BaseObjects;
 
-public enum MeleeWeapon {
+import java.io.Serializable;
+
+public enum MeleeWeapon implements Serializable
+{
     CHAIN_AXE,
     MANREAPER,
     LIGHTING_CLAW,

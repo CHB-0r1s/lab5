@@ -1,8 +1,10 @@
 package BaseObjects;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Chapter implements Comparable<Chapter>{
+public class Chapter implements Comparable<Chapter>, Serializable
+{
     private String name;
     private String parentLegion;
 
