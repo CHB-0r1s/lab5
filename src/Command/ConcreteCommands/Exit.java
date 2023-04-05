@@ -13,10 +13,7 @@ public class Exit extends Command{
         }
 
         @Override
-        protected void execute(String[] args) throws IOException {
-            if (args.length > 1) {
-                System.out.println("Invalid number of arguments: expected 0");
-            }
+        public void execute() throws IOException {
             commandReceiver.exit();
         }
 

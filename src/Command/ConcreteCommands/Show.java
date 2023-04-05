@@ -11,10 +11,7 @@ public class Show extends Command {
     }
 
     @Override
-    protected void execute(String[] args) {
-        if (args.length > 1) {
-            System.out.println("Invalid number of arguments: expected 0");
-        }
+    public void execute() {
         commandReceiver.show();
     }
 

@@ -2,6 +2,7 @@ package ClientServer;
 
 import BaseObjects.SpaceMarine;
 import Command.Command;
+import Utils.ManagerOfCollection;
 
 import java.io.*;
 import java.net.*;
@@ -10,6 +11,7 @@ public class Server
 {
     public static void main(String[] args) throws IOException
     {
+        ManagerOfCollection.createMyCollection();
         int port = GettingPort.getPort();
 
         ServerSocket serverSocket = new ServerSocket(port);
@@ -25,12 +27,8 @@ public class Server
             {
                 Command command = (Command) objectInputStream.readObject();
                 // команда реализовалась
-                SpaceMarine spaceMarineFromClient = command.getSpaceMarineFromClient();
-                if (spaceMarineFromClient != null) {
-                    // команда с креатором
+                command.execute();
                 }
-                System.out.println(spaceMarineFromClient);
-            }
             catch (ClassNotFoundException e)
             {
                 System.out.println(e);

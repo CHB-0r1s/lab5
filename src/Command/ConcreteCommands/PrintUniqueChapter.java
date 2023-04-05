@@ -13,11 +13,7 @@ public class PrintUniqueChapter extends Command{
     }
 
     @Override
-    protected void execute(String[] args) {
-        if (args.length > 1) {
-            System.out.println(Arrays.toString(args));
-            System.out.println("Invalid number of arguments: expected 0");
-        }
+    public void execute() {
         commandReceiver.print_unique_chapter();
 
     }

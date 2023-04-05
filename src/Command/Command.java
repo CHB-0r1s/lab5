@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 public abstract class Command implements Serializable
 {
-    protected abstract void execute(String[] args) throws IOException;
+    public abstract void execute() throws IOException;
     protected abstract void writeInfo();
     private float floatFromClient;
     private long longFromClient;

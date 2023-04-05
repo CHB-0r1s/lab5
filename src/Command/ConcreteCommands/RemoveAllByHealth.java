@@ -11,9 +11,8 @@ public class RemoveAllByHealth extends Command {
     }
 
     @Override
-    protected void execute(String[] args) {
-        if (args.length == 2) { commandReceiver.remove_all_by_health(this.getDoubleFromClient()); }
-        else { System.out.println("Invalid number of arguments: expected 1, found 0."); }
+    public void execute() {
+        commandReceiver.remove_all_by_health(this.getDoubleFromClient());
     }
     // TODO: readers wrapper-only
     @Override

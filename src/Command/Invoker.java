@@ -19,7 +19,7 @@ public class Invoker implements Serializable
             if (command_name.length > 0) {
                 Command command = invokerHashMap.get(command_name[0]);
                 invokerListOfCommand.add(command_name[0]);
-                command.execute(command_name);
+                command.execute();
             } else {
                 System.out.println("You have not entered a command.");
             }

@@ -16,15 +16,15 @@ public class ExecuteScript extends Command {
     }
 
     @Override
-    protected void execute(String[] args) throws StackOverflowError {
-        try {
-            if (args.length == 2) { path = args[1]; commandReceiver.execute_script(args[1]); }
+    public void execute() throws StackOverflowError {
+        /*try {
+            commandReceiver.execute_script(args[1]); }
             else { System.out.println("Invalid number of arguments: expected 1, found 0."); }
         } catch (StackOverflowError ex) {
             System.out.println("Stack overflow due to cyclic recursion");
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
 
     @Override
