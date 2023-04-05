@@ -12,6 +12,9 @@ public class Server
     public static void main(String[] args) throws IOException
     {
         ManagerOfCollection.createMyCollection();
+        if (args[0].length() > 0) {
+            ManagerOfCollection.fillFromXml(args[0]);
+        }
         int port = GettingPort.getPort();
 
         ServerSocket serverSocket = new ServerSocket(port);
