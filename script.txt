@@ -1,2 +1,12 @@
+add
+123123123
+123
+123
+123
+SCOUT
+FLAMER
+MANREAPER
+2
+123
 show
 execute_script script2.txt

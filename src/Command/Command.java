@@ -6,8 +6,10 @@ import Utils.MyReaders.MyLongReader;
 import Utils.MyReaders.MyPrimDoubleReader;
 import Utils.SpaceMarineCreator;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public abstract class Command implements Serializable
 {
@@ -17,6 +19,7 @@ public abstract class Command implements Serializable
     private long longFromClient;
     private double doubleFromClient;
     private SpaceMarine spaceMarineFromClient;
+    private ArrayList<Command> commandsFromScript;
 
     public void setFloatFromClient()
     {
@@ -26,11 +29,33 @@ public abstract class Command implements Serializable
     {
         this.longFromClient = MyLongReader.read("Enter ID in long format: ");
     }
+
+    public void setLongFromClient(long longFromClient)
+    {
+        this.longFromClient = longFromClient;
+    }
+
     public void setDoubleFromClient() {this.doubleFromClient = MyPrimDoubleReader.read("Enter HP in double format: ");
     }
+
+    public void setDoubleFromClient(double doubleFromClient)
+    {
+        this.doubleFromClient = doubleFromClient;
+    }
+
     public void setSpaceMarineFromClient()
     {
         this.spaceMarineFromClient = SpaceMarineCreator.createSpaceMarine();
+    }
+
+    public void setSpaceMarineFromClient(SpaceMarine spaceMarineFromClient)
+    {
+        this.spaceMarineFromClient = spaceMarineFromClient;
+    }
+
+    public void setCommandsFromScript(String fileName) throws FileNotFoundException
+    {
+        this.commandsFromScript = Invoker.invokeCommandFromScriptForClient(fileName);
     }
 
     public float getFloatFromClient()
@@ -47,5 +72,10 @@ public abstract class Command implements Serializable
     public SpaceMarine getSpaceMarineFromClient()
     {
         return spaceMarineFromClient;
+    }
+
+    public ArrayList<Command> getCommandsFromScript()
+    {
+        return commandsFromScript;
     }
 }
