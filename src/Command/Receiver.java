@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 
 public class Receiver implements Serializable{
-    private final Invoker commandInvoker;
+    public final Invoker commandInvoker;
 
     public Receiver(Invoker commandInvoker) {
         this.commandInvoker = commandInvoker;

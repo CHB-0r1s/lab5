@@ -25,6 +25,9 @@ public class Server
             System.out.println("Client accepted");
 
             ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+            PrintStream output = new PrintStream(clientSocket.getOutputStream());
+            System.setOut(output);
+            System.out.println("Hello!");
 
             try
             {

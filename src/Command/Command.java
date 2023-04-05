@@ -55,7 +55,7 @@ public abstract class Command implements Serializable
 
     public void setCommandsFromScript(String fileName) throws FileNotFoundException
     {
-        this.commandsFromScript = Invoker.invokeCommandFromScriptForClient(fileName);
+        //this.commandsFromScript = Invoker.invokeCommandFromScriptForClient(fileName);
     }
 
     public float getFloatFromClient()

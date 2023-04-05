@@ -16,8 +16,9 @@ import java.util.Scanner;
 
 public class Invoker implements Serializable
 {
-    public static HashMap<String, Command> invokerHashMap = new HashMap<String, Command>();
+    public HashMap<String, Command> invokerHashMap = new HashMap<String, Command>();
     //why is it cannot be static^^^^
+    //because another commands breaks after it
     public ArrayList<String> invokerListOfCommand = new ArrayList<>();
 
     public void invoke(String[] command_name) throws IOException {
@@ -76,7 +77,25 @@ public class Invoker implements Serializable
         }
     }
 
-    public static ArrayList<Command> invokeCommandFromScriptForClient(String fileName) throws FileNotFoundException
+    public ArrayList<Command> invokeCommandFromScriptForClient(String fileName) throws FileNotFoundException
+            /* Эта история пусть будет нон-статик, тогда можно будет нормально до хешмапы достучаться
+            Очевидно что хочется в setCommandsFromScript дотянуться до хешмапа инвокеровского, но делать
+            это вот так будто бы не очень правильно. По паттерну команда у тебя не знает об инвокере.
+            В связи с этим предлагаю два решения:
+            1. (мне больше нравица)
+            Если мы решили команде рассказать как ей самозаполнять свои поля из файла, то будто бы мы никак не отделаемся
+            от необходимости знакомить команду с другими командами. Решение как бы дублирует код, но вроде не сильно и
+            вроде бы логично: хранить отдельный мап со всеми командами в этой функции. Вроде логично? Функция для
+            самозаполнения всех команд из файла содержит мап всех команд. Вроед норм.
+            2. (больновато, но будто правильнее)
+            Сделать клиентский ресивер, который будет эту боль решать. Ресивер знает от инвокере, дотянуться до него
+            может. Все команды которые проблем не вызывают, будут выглядеть коротко и лаконично, даже не лишний код.
+            А вся наша клиентская логика, которую размазало по инвокеру и командам мы запихнем туда. Пока что отработаем
+            концепт клиентского ресивера только на execute, потом ещё подумаем что туда вынести. Много кода из категории
+            "потом перепишем и доделаем" можно запихнуть туда.
+
+
+            */
     {
         File file = new File(fileName);
         Scanner reader = new Scanner(file);
@@ -106,7 +125,7 @@ public class Invoker implements Serializable
                     }
                 }
                 SpaceMarine spaceMarine = SpaceMarineCreator.createScriptSpaceMarine(parameters);
-                Command command = invokerHashMap.get(commandLine.split(" ")[0]);
+                Command command = this.invokerHashMap.get(commandLine.split(" ")[0]);
                 switch (command.getClass().getSimpleName().toString())
                 {
                     case "Add":
