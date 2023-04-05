@@ -20,6 +20,7 @@ public class Invoker implements Serializable
     //why is it cannot be static^^^^
     //because another commands breaks after it
     public ArrayList<String> invokerListOfCommand = new ArrayList<>();
+    private static ArrayList<String> fileNamesForNoRecursion = new ArrayList<>();
 
     public void invoke(String[] command_name) throws IOException {
         try {
@@ -97,6 +98,7 @@ public class Invoker implements Serializable
 
             */
     {
+        fileNamesForNoRecursion.add(fileName);
         File file = new File(fileName);
         Scanner reader = new Scanner(file);
         String line;
@@ -104,13 +106,15 @@ public class Invoker implements Serializable
         ArrayList<String> parameters = new ArrayList<>();
         ArrayList<Command> commands = new ArrayList<>();
         Invoker invoker = new Invoker();
+        SpaceMarine spaceMarine = null;
+        Command command = null;
         outer:
         while (reader.hasNextLine())
         {
             line = reader.nextLine();
+            commandLine = line;
             if (line.split(" ")[0].matches("add|update|remove_greater|remove_lower"))
             {
-                commandLine = line;
                 for (int i = 0; i < 9; i++)
                 {
                     if (reader.hasNextLine())
@@ -124,57 +128,81 @@ public class Invoker implements Serializable
                         break outer;
                     }
                 }
-                SpaceMarine spaceMarine = SpaceMarineCreator.createScriptSpaceMarine(parameters);
-                Command command = this.invokerHashMap.get(commandLine.split(" ")[0]);
-                switch (command.getClass().getSimpleName().toString())
-                {
-                    case "Add":
-                    case "RemoveGreater":
-                    case "RemoveLower":
-                        command.setSpaceMarineFromClient(spaceMarine); break;
-                    case "Update": try
-                    {
-                        command.setLongFromClient(Long.parseLong(commandLine.split(" ")[1]));
-                        command.setSpaceMarineFromClient(spaceMarine); break;
-                    }catch (NumberFormatException | ArrayIndexOutOfBoundsException e)
-                    {
-                        System.out.println("There is no number after Update.");
-                        break outer;
-                    }
-
-                    case "RemoveAllByHealth": try
-                    {
-                        command.setDoubleFromClient(Double.parseDouble(commandLine.split(" ")[1]));
-                    }catch (NumberFormatException | ArrayIndexOutOfBoundsException e)
-                    {
-                        System.out.println("There is no number after Remove_All_By_Health.");
-                        break outer;
-                    }
-
-                    case "RemoveByID": try
-                    {
-                        command.setLongFromClient(Long.parseLong(commandLine.split(" ")[1]));
-                        command.setSpaceMarineFromClient(spaceMarine); break;
-                    }catch (NumberFormatException | ArrayIndexOutOfBoundsException e)
-                    {
-                        System.out.println("There is no number after Update.");
-                        break outer;
-                    }
-
-                    case "ExecuteScript": command = null; break;
-                }
-                commands.add(command);
+                spaceMarine = SpaceMarineCreator.createScriptSpaceMarine(parameters);
             }
+            command = invokerHashMap.get(commandLine.split(" ")[0]);
+            switch (command.getClass().getSimpleName().toString())
+            {
+                case "Add":
+                case "RemoveGreater":
+                case "RemoveLower":
+                    command.setSpaceMarineFromClient(spaceMarine); break;
+                case "Update": try
+                {
+                    command.setLongFromClient(Long.parseLong(commandLine.split(" ")[1]));
+                    command.setSpaceMarineFromClient(spaceMarine); break;
+                }catch (NumberFormatException | ArrayIndexOutOfBoundsException e)
+                {
+                    System.out.println("There is no number after Update.");
+                    break outer;
+                }
+
+                case "RemoveAllByHealth": try
+                {
+                    command.setDoubleFromClient(Double.parseDouble(commandLine.split(" ")[1]));
+                }catch (NumberFormatException | ArrayIndexOutOfBoundsException e)
+                {
+                    System.out.println("There is no number after Remove_All_By_Health.");
+                    break outer;
+                }
+
+                case "RemoveByID": try
+                {
+                    command.setLongFromClient(Long.parseLong(commandLine.split(" ")[1]));
+                    command.setSpaceMarineFromClient(spaceMarine); break;
+                }catch (NumberFormatException | ArrayIndexOutOfBoundsException e)
+                {
+                    System.out.println("There is no number after Update.");
+                    break outer;
+                }
+
+                case "ExecuteScript":
+                    try
+                    {
+                        if (line.split(" ").length > 1)
+                        {
+                            if (fileNamesForNoRecursion.contains(line.split(" ")[1]))
+                            {
+                                System.out.println("There is a recursion in the script. It will be skipped.");
+                                command = null;
+                            }
+                            else
+                            {
+                                command = invoker.invokeForClient(line.split(" "));
+                            }
+                        }else
+                        {
+                            System.out.println("There is no file name after Execute_Script.");
+                            commands = null;
+                        }
+                    }catch (IOException e)
+                    {
+                        System.out.println(e);
+                    }
+
+            }
+            commands.add(command);
+
 //            else if (line.split(" ")[0].equals("execute_script")
 //                    && line.split(" ")[1].equals(ExecuteScript.getPath())) { System.out.println("An attempt to recursively call the script was stopped."); }
-            else { try
-            {
-                commands.add(invoker.invokeForClient(line.split(" ")));
-            } catch (IOException e)
-            {
-                System.out.println(e);
-            }
-            }
+//            else { try
+//            {
+//                commands.add(invoker.invokeForClient(line.split(" ")));
+//            } catch (IOException e)
+//            {
+//                System.out.println(e);
+//            }
+//            }
         }
         return commands;
     }
