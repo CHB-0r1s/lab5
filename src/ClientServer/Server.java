@@ -30,6 +30,7 @@ public class Server
             {
                 Command command = (Command) objectInputStream.readObject();
                 // команда реализовалась
+                System.out.println(command);
                 command.execute();
                 }
             catch (ClassNotFoundException e)
