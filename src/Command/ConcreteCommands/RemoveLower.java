@@ -15,7 +15,7 @@ public class RemoveLower extends Command {
         if (args.length > 2) {
             System.out.println("Invalid number of arguments: expected 0");
         }
-        commandReceiver.remove_lower();
+        commandReceiver.remove_lower(this.getSpaceMarineFromClient());
     }
 
     @Override

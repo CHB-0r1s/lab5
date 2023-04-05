@@ -15,7 +15,7 @@ public class RemoveGreater extends Command {
         if (args.length > 2) {
             System.out.println("Invalid number of arguments: expected 0");
         }
-        commandReceiver.remove_greater();
+        commandReceiver.remove_greater(this.getSpaceMarineFromClient());
     }
 
     @Override

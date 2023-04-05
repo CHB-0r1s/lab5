@@ -12,7 +12,7 @@ public class Update extends Command {
 
     @Override
     protected void execute(String[] args) {
-        if (args.length == 2) { commandReceiver.update(args[1]); }
+        if (args.length == 2) { commandReceiver.update(this.getLongFromClient(), this.getSpaceMarineFromClient()); }
         else { System.out.println("Invalid number of arguments: expected 1, found 0."); }
     }
 

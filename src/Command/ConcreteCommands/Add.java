@@ -15,7 +15,7 @@ public class Add extends Command {
         if (args.length > 1) {
             System.out.println("Invalid number of arguments: expected 0 and fields below");
         }
-        commandReceiver.add();
+        commandReceiver.add(this.getSpaceMarineFromClient());
     }
 
     @Override

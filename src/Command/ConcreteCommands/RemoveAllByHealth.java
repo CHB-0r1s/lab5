@@ -12,10 +12,10 @@ public class RemoveAllByHealth extends Command {
 
     @Override
     protected void execute(String[] args) {
-        if (args.length == 2) { commandReceiver.remove_all_by_health(args[1]); }
+        if (args.length == 2) { commandReceiver.remove_all_by_health(this.getDoubleFromClient()); }
         else { System.out.println("Invalid number of arguments: expected 1, found 0."); }
     }
-
+    // TODO: readers wrapper-only
     @Override
     protected void writeInfo() {
         System.out.println("Команда remove_all_by_health. Синтаксис: remove_all_by_health health – " +
