@@ -21,7 +21,7 @@ public class Client
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream()));
             sendingCommand(commandInvoker, clientSocket, writer);
-            String getMsg = reader.readLine();
+            String getMsg = reader.readLine().replaceAll("@", "\n");
             System.out.println(getMsg);
 
         }

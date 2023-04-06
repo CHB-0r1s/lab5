@@ -43,7 +43,7 @@ public class Server
                 out.close();
                 while (scanner.hasNextLine())
                 {
-                    writer.write(scanner.nextLine());
+                    writer.write(scanner.nextLine() + "@");
                 }
                 writer.newLine();
                 writer.flush();
