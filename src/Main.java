@@ -34,8 +34,8 @@ public class Main {
         // Делает ОЛЯ invokerHashMap.put("execute_script", new ExecuteScript(commandReceiver));
         // invokerHashMap.put("history", new History(commandReceiver));
         // invokerHashMap.put("remove_all_by_health", new RemoveAllByHealth(commandReceiver));
-        invokerHashMap.put("max_by_melee_weapon", new MaxByMeleeWeapon(commandReceiver));
-        invokerHashMap.put("print_unique_chapter", new PrintUniqueChapter(commandReceiver));
+        // invokerHashMap.put("max_by_melee_weapon", new MaxByMeleeWeapon(commandReceiver));
+        // invokerHashMap.put("print_unique_chapter", new PrintUniqueChapter(commandReceiver));
 
         try(Scanner scanner = new Scanner(System.in)) {
             while (scanner.hasNextLine()) {
