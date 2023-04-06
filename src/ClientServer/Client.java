@@ -18,7 +18,12 @@ public class Client
             Invoker commandInvoker = new Invoker();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(clientSocket.getOutputStream()));
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(clientSocket.getInputStream()));
             sendingCommand(commandInvoker, clientSocket, writer);
+            String getMsg = reader.readLine();
+            System.out.println(getMsg);
+
         }
         catch (UnknownHostException e)
         {
@@ -32,7 +37,7 @@ public class Client
     private static void sendingCommand(Invoker commandInvoker, Socket clientSocket, BufferedWriter writer)
     {
         try(Scanner scanner = new Scanner(System.in)) {
-            while (scanner.hasNextLine()) {
+            //while (scanner.hasNextLine()) {
                 Command command = commandInvoker.invokeForClient(scanner.nextLine().trim().split("\s+"));
                 if (command == null)
                 {
@@ -44,7 +49,7 @@ public class Client
                 //sends without string after command
                 writer.newLine();
                 writer.flush();
-            }
+            //}
         }catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -6,6 +6,7 @@ import Utils.ManagerOfCollection;
 
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 
 public class Server
 {
@@ -24,14 +25,29 @@ public class Server
             Socket clientSocket = serverSocket.accept();
             System.out.println("Client accepted");
 
+            File fileName = new File("outServer.txt");
+
             ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
+
+            PrintStream out = new PrintStream(new FileOutputStream(fileName));
+            System.setOut(out);
+
+            Scanner scanner = new Scanner(fileName);
 
             try
             {
                 Command command = (Command) objectInputStream.readObject();
                 // команда реализовалась
                 command.execute();
+                out.close();
+                while (scanner.hasNextLine())
+                {
+                    writer.write(scanner.nextLine());
                 }
+                writer.newLine();
+                writer.flush();
+            }
             catch (ClassNotFoundException e)
             {
                 System.out.println(e);
