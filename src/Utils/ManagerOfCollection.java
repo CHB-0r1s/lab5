@@ -67,7 +67,7 @@ public class ManagerOfCollection {
     }
 
     public static boolean elemExist(long ID) {
-        for (SpaceMarine spaceMarine : ManagerOfCollection.getMyCollection()) {
+        for (SpaceMarine spaceMarine: ManagerOfCollection.getMyCollection()) {
             if (spaceMarine.getId() == ID) {
                 return spaceMarine.getId() == ID;
             }

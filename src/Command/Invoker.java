@@ -40,39 +40,31 @@ public class Invoker implements Serializable
         fillHashMap();
         if (command_name.length > 0 && invokerHashMap.get(command_name[0]) != null) {
             Command command = invokerHashMap.get(command_name[0]);
-            switch (command.getClass().getSimpleName().toString())
-            {
-                case "Add":
-                case "RemoveGreater":
-                case "RemoveLower":
-                    command.setSpaceMarineFromClient(); break;
-                case "Update": command.setLongFromClient(); command.setSpaceMarineFromClient(); break;
-                case "RemoveAllByHealth": command.setDoubleFromClient(); break;
-                case "RemoveByID": command.setLongFromClient(); break;
-                case "ExecuteScript": if (command_name.length > 1)
-                {
-                    try
-                    {
+
+            if ("ExecuteScript".equals(command.getClass().getSimpleName().toString())) {
+                if (command_name.length > 1) {
+                    try {
                         command.setCommandsFromScript(command_name[1]);
-                    } catch (FileNotFoundException e)
-                    {
+                    } catch (FileNotFoundException e) {
                         System.out.println("There is no file with such name. Try again.");
                         return null;
                     }
-                }else
-                {
+                } else {
                     System.out.println("You have not entered a file name.");
                     return null;
-                } break;
+                }
             }
             invokerListOfCommand.add(command_name[0]);
-            return command;
-        } else if (command_name.length == 0)
-        {
+
+            return command.clientExecute();
+
+        }
+
+        else if (command_name.length == 0) {
             System.out.println("You have not entered a command.");
             return null;
-        } else
-        {
+        }
+        else {
             System.out.println("There is no command " + command_name[0] + ". For reference, use Ц help");
             return null;
         }
@@ -211,21 +203,22 @@ public class Invoker implements Serializable
     private void fillHashMap()
     {
         Receiver commandReceiver = new Receiver(this);
-        invokerHashMap.put("help", new Help(commandReceiver));
-        invokerHashMap.put("info", new Info(commandReceiver));
-        invokerHashMap.put("add", new Add(commandReceiver));
-        invokerHashMap.put("show", new Show(commandReceiver));
-        invokerHashMap.put("update", new Update(commandReceiver));
-        invokerHashMap.put("remove_by_id", new RemoveByID(commandReceiver));
-        invokerHashMap.put("clear", new Clear(commandReceiver));
-        invokerHashMap.put("exit", new Exit(commandReceiver));
-        invokerHashMap.put("remove_greater", new RemoveGreater(commandReceiver));
-        invokerHashMap.put("remove_lower", new RemoveLower(commandReceiver));
-        invokerHashMap.put("save", new Save(commandReceiver));
-        invokerHashMap.put("execute_script", new ExecuteScript(commandReceiver));
-        invokerHashMap.put("history", new History(commandReceiver));
-        invokerHashMap.put("remove_all_by_health", new RemoveAllByHealth(commandReceiver));
-        invokerHashMap.put("max_by_melee_weapon", new MaxByMeleeWeapon(commandReceiver));
-        invokerHashMap.put("print_unique_chapter", new PrintUniqueChapter(commandReceiver));
+        clientReceiver clientReceiver = new clientReceiver(this);
+        invokerHashMap.put("help", new Help(commandReceiver, clientReceiver));
+        invokerHashMap.put("info", new Info(commandReceiver, clientReceiver));
+        invokerHashMap.put("add", new Add(commandReceiver, clientReceiver));
+        invokerHashMap.put("show", new Show(commandReceiver, clientReceiver));
+        invokerHashMap.put("update", new Update(commandReceiver, clientReceiver));
+        invokerHashMap.put("remove_by_id", new RemoveByID(commandReceiver, clientReceiver));
+        invokerHashMap.put("clear", new Clear(commandReceiver, clientReceiver));
+        invokerHashMap.put("exit", new Exit(commandReceiver, clientReceiver));
+        invokerHashMap.put("remove_greater", new RemoveGreater(commandReceiver, clientReceiver));
+        invokerHashMap.put("remove_lower", new RemoveLower(commandReceiver, clientReceiver));
+        // invokerHashMap.put("save", new Save(commandReceiver));
+        // ќл€ твой выход invokerHashMap.put("execute_script", new ExecuteScript(commandReceiver));
+        invokerHashMap.put("history", new History(commandReceiver, clientReceiver));
+        invokerHashMap.put("remove_all_by_health", new RemoveAllByHealth(commandReceiver, clientReceiver));
+        invokerHashMap.put("max_by_melee_weapon", new MaxByMeleeWeapon(commandReceiver, clientReceiver));
+        invokerHashMap.put("print_unique_chapter", new PrintUniqueChapter(commandReceiver, clientReceiver));
     }
 }

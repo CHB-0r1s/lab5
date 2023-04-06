@@ -28,6 +28,11 @@ public class ExecuteScript extends Command {
     }
 
     @Override
+    public Command clientExecute() {
+        return null;
+    }
+
+    @Override
     protected void writeInfo() {
         System.out.println("The execute_script command. Syntax: execute_script file_name – read and execute the script from the specified file. " +
                 "The script contains commands in the same form as they are entered by the user in interactive mode.");

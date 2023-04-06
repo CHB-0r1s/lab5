@@ -2,19 +2,25 @@ package Command.ConcreteCommands;
 
 import Command.Command;
 import Command.Receiver;
-
-import java.util.Arrays;
+import Command.clientReceiver;
 
 public class Help extends Command{
         private final Receiver commandReceiver;
+        private final clientReceiver clientReceiver;
 
-    public Help(Receiver commandReceiver) {
+    public Help(Receiver commandReceiver, clientReceiver clientReceiver) {
         this.commandReceiver = commandReceiver;
+        this.clientReceiver = clientReceiver;
     }
 
     @Override
     public void execute() {
         commandReceiver.help();
+    }
+    @Override
+    public Command clientExecute() {
+        return clientReceiver.help();
+
     }
 
     @Override

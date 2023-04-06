@@ -2,20 +2,25 @@ package Command.ConcreteCommands;
 
 import Command.Command;
 import Command.Receiver;
-
-import java.util.Arrays;
+import Command.clientReceiver;
 
 public class PrintUniqueChapter extends Command{
     private final Receiver commandReceiver;
-
-    public PrintUniqueChapter(Receiver commandReceiver) {
+    private final clientReceiver clientReceiver;
+    public PrintUniqueChapter(Receiver commandReceiver, clientReceiver clientReceiver) {
         this.commandReceiver = commandReceiver;
+        this.clientReceiver = clientReceiver;
     }
 
     @Override
     public void execute() {
         commandReceiver.print_unique_chapter();
 
+    }
+
+    @Override
+    public Command clientExecute() {
+        return clientReceiver.print_unique_chapter();
     }
 
     @Override

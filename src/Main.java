@@ -20,20 +20,20 @@ public class Main {
 
         Receiver commandReceiver = new Receiver(commandInvoker);
 
-        invokerHashMap.put("help", new Help(commandReceiver));
-        invokerHashMap.put("info", new Info(commandReceiver));
-        invokerHashMap.put("add", new Add(commandReceiver));
-        invokerHashMap.put("show", new Show(commandReceiver));
-        invokerHashMap.put("update", new Update(commandReceiver));
-        invokerHashMap.put("remove_by_id", new RemoveByID(commandReceiver));
-        invokerHashMap.put("clear", new Clear(commandReceiver));
-        invokerHashMap.put("exit", new Exit(commandReceiver));
-        invokerHashMap.put("remove_greater", new RemoveGreater(commandReceiver));
-        invokerHashMap.put("remove_lower", new RemoveLower(commandReceiver));
-        invokerHashMap.put("save", new Save(commandReceiver));
-        invokerHashMap.put("execute_script", new ExecuteScript(commandReceiver));
-        invokerHashMap.put("history", new History(commandReceiver));
-        invokerHashMap.put("remove_all_by_health", new RemoveAllByHealth(commandReceiver));
+        // invokerHashMap.put("help", new Help(commandReceiver));
+        // invokerHashMap.put("info", new Info(commandReceiver));
+        // invokerHashMap.put("add", new Add(commandReceiver));
+        // invokerHashMap.put("show", new Show(commandReceiver));
+        // invokerHashMap.put("update", new Update(commandReceiver));
+        // invokerHashMap.put("remove_by_id", new RemoveByID(commandReceiver));
+        // invokerHashMap.put("clear", new Clear(commandReceiver));
+        // invokerHashMap.put("exit", new Exit(commandReceiver));
+        // invokerHashMap.put("remove_greater", new RemoveGreater(commandReceiver));
+        // invokerHashMap.put("remove_lower", new RemoveLower(commandReceiver));
+        // Чё с ней invokerHashMap.put("save", new Save(commandReceiver));
+        // Делает ОЛЯ invokerHashMap.put("execute_script", new ExecuteScript(commandReceiver));
+        // invokerHashMap.put("history", new History(commandReceiver));
+        // invokerHashMap.put("remove_all_by_health", new RemoveAllByHealth(commandReceiver));
         invokerHashMap.put("max_by_melee_weapon", new MaxByMeleeWeapon(commandReceiver));
         invokerHashMap.put("print_unique_chapter", new PrintUniqueChapter(commandReceiver));
 

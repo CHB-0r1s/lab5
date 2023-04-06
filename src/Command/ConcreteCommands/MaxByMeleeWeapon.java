@@ -2,17 +2,24 @@ package Command.ConcreteCommands;
 
 import Command.Command;
 import Command.Receiver;
+import Command.clientReceiver;
 
 public class MaxByMeleeWeapon extends Command{
     private final Receiver commandReceiver;
-
-    public MaxByMeleeWeapon(Receiver commandReceiver) {
+    private final clientReceiver clientReceiver;
+    public MaxByMeleeWeapon(Receiver commandReceiver, clientReceiver clientReceiver) {
         this.commandReceiver = commandReceiver;
+        this.clientReceiver = clientReceiver;
     }
 
     @Override
     public void execute() {
         commandReceiver.max_by_melee_weapon();
+    }
+
+    @Override
+    public Command clientExecute() {
+        return clientReceiver.max_by_melee_weapon();
     }
 
     @Override

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public abstract class Command implements Serializable
 {
     public abstract void execute() throws IOException;
+    public abstract Command clientExecute();
     protected abstract void writeInfo();
     private float floatFromClient;
     private long longFromClient;
@@ -67,7 +68,7 @@ public abstract class Command implements Serializable
     {
         return longFromClient;
     }
-    public double getDoubleFromClient() {return doubleFromClient;}
+    public double getDoubleFromClient() { return doubleFromClient; }
 
     public SpaceMarine getSpaceMarineFromClient()
     {

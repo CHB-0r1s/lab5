@@ -18,6 +18,11 @@ public class Save extends Command {
     }
 
     @Override
+    public Command clientExecute() {
+        return null;
+    }
+
+    @Override
     protected void writeInfo() {
         System.out.println("The save command is to save the collection to a file.");
     }
