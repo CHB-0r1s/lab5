@@ -2,9 +2,9 @@ package Command;
 
 import BaseObjects.SpaceMarine;
 import Command.ConcreteCommands.*;
-import Utils.ManagerOfCollection;
 import Utils.SpaceMarineCreator;
 
+import javax.script.ScriptEngine;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,8 +17,6 @@ import java.util.Scanner;
 public class Invoker implements Serializable
 {
     public HashMap<String, Command> invokerHashMap = new HashMap<String, Command>();
-    //why is it cannot be static^^^^
-    //because another commands breaks after it
     public ArrayList<String> invokerListOfCommand = new ArrayList<>();
     private static ArrayList<String> fileNamesForNoRecursion = new ArrayList<>();
 
@@ -41,10 +39,11 @@ public class Invoker implements Serializable
         if (command_name.length > 0 && invokerHashMap.get(command_name[0]) != null) {
             Command command = invokerHashMap.get(command_name[0]);
 
-            if ("ExecuteScript".equals(command.getClass().getSimpleName().toString())) {
+            if ("ExecuteScript".equals(command.getClass().getSimpleName())) {
                 if (command_name.length > 1) {
                     try {
                         command.setCommandsFromScript(command_name[1]);
+                        return command;
                     } catch (FileNotFoundException e) {
                         System.out.println("There is no file with such name. Try again.");
                         return null;
@@ -54,6 +53,9 @@ public class Invoker implements Serializable
                     return null;
                 }
             }
+
+            //i think there must be no code from 42 to 55, but really, it doesn't work from how i try to write it :(
+
             invokerListOfCommand.add(command_name[0]);
 
             return command.clientExecute();
@@ -200,10 +202,10 @@ public class Invoker implements Serializable
     }
 
 
-    private void fillHashMap()
+    public void fillHashMap()
     {
         Receiver commandReceiver = new Receiver(this);
-        clientReceiver clientReceiver = new clientReceiver(this);
+        ClientReceiver clientReceiver = new ClientReceiver(this);
         invokerHashMap.put("help", new Help(commandReceiver, clientReceiver));
         invokerHashMap.put("info", new Info(commandReceiver, clientReceiver));
         invokerHashMap.put("add", new Add(commandReceiver, clientReceiver));
@@ -215,7 +217,7 @@ public class Invoker implements Serializable
         invokerHashMap.put("remove_greater", new RemoveGreater(commandReceiver, clientReceiver));
         invokerHashMap.put("remove_lower", new RemoveLower(commandReceiver, clientReceiver));
         // invokerHashMap.put("save", new Save(commandReceiver));
-        // Оля твой выход invokerHashMap.put("execute_script", new ExecuteScript(commandReceiver));
+        invokerHashMap.put("execute_script", new ExecuteScript(commandReceiver));
         invokerHashMap.put("history", new History(commandReceiver, clientReceiver));
         invokerHashMap.put("remove_all_by_health", new RemoveAllByHealth(commandReceiver, clientReceiver));
         invokerHashMap.put("max_by_melee_weapon", new MaxByMeleeWeapon(commandReceiver, clientReceiver));

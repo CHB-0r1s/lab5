@@ -46,7 +46,6 @@ public class Client
                 }
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
                 objectOutputStream.writeObject(command);
-                //sends without string after command
                 writer.newLine();
                 writer.flush();
             //}

@@ -2,13 +2,13 @@ package Command.ConcreteCommands;
 
 import Command.Command;
 import Command.Receiver;
-import Command.clientReceiver;
+import Command.ClientReceiver;
 
 public class RemoveGreater extends Command {
     private final Receiver commandReceiver;
-    private final clientReceiver clientReceiver;
+    private final ClientReceiver clientReceiver;
 
-    public RemoveGreater (Receiver commandReceiver, clientReceiver clientReceiver) {
+    public RemoveGreater (Receiver commandReceiver, ClientReceiver clientReceiver) {
         this.commandReceiver = commandReceiver;
         this.clientReceiver = clientReceiver;
     }

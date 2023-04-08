@@ -2,15 +2,13 @@ package Command.ConcreteCommands;
 
 import Command.Command;
 import Command.Receiver;
-import Command.clientReceiver;
-
-import java.util.Arrays;
+import Command.ClientReceiver;
 
 public class History extends Command{
     private final Receiver commandReceiver;
-    private final clientReceiver clientReceiver;
+    private final ClientReceiver clientReceiver;
 
-    public History(Receiver commandReceiver, clientReceiver clientReceiver) {
+    public History(Receiver commandReceiver, ClientReceiver clientReceiver) {
         this.commandReceiver = commandReceiver;
         this.clientReceiver = clientReceiver;
     }

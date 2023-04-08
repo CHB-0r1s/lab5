@@ -2,13 +2,13 @@ package Command.ConcreteCommands;
 
 import Command.Command;
 import Command.Receiver;
-import Command.clientReceiver;
+import Command.ClientReceiver;
 
 public class Show extends Command {
     private final Receiver commandReceiver;
-    private final clientReceiver clientReceiver;
+    private final ClientReceiver clientReceiver;
 
-    public Show(Receiver commandReceiver, clientReceiver clientReceiver) {
+    public Show(Receiver commandReceiver, ClientReceiver clientReceiver) {
         this.commandReceiver = commandReceiver;
         this.clientReceiver = clientReceiver;
     }

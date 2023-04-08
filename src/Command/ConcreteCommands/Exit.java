@@ -2,15 +2,15 @@ package Command.ConcreteCommands;
 
 import Command.Command;
 import Command.Receiver;
-import Command.clientReceiver;
+import Command.ClientReceiver;
 
 import java.io.IOException;
 
 public class Exit extends Command{
     private final Receiver commandReceiver;
-    private final clientReceiver clientReceiver;
+    private final ClientReceiver clientReceiver;
 
-    public Exit(Receiver commandReceiver, clientReceiver clientReceiver) {
+    public Exit(Receiver commandReceiver, ClientReceiver clientReceiver) {
         this.commandReceiver = commandReceiver;
         this.clientReceiver = clientReceiver;
         }

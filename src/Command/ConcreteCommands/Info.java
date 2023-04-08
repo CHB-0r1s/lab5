@@ -2,13 +2,13 @@ package Command.ConcreteCommands;
 
 import Command.Command;
 import Command.Receiver;
-import Command.clientReceiver;
+import Command.ClientReceiver;
 
 public class Info extends Command {
     private final Receiver commandReceiver;
-    private final clientReceiver clientReceiver;
+    private final ClientReceiver clientReceiver;
 
-    public Info(Receiver commandReceiver, clientReceiver clientReceiver) {
+    public Info(Receiver commandReceiver, ClientReceiver clientReceiver) {
 
         this.commandReceiver = commandReceiver;
         this.clientReceiver = clientReceiver;
