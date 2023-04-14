@@ -15,7 +15,8 @@ public class RemoveAllByHealth extends Command {
 
     @Override
     public void execute() {
-        commandReceiver.remove_all_by_health(this.getDoubleFromClient());
+//        commandReceiver.remove_all_by_health(this.getDoubleFromClient());
+        commandReceiver.remove_all_by_health((Double) this.getExtraDataFromClient());
     }
 
     @Override

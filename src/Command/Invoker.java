@@ -4,7 +4,6 @@ import BaseObjects.SpaceMarine;
 import Command.ConcreteCommands.*;
 import Utils.SpaceMarineCreator;
 
-import javax.script.ScriptEngine;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -42,7 +41,8 @@ public class Invoker implements Serializable
             if ("ExecuteScript".equals(command.getClass().getSimpleName())) {
                 if (command_name.length > 1) {
                     try {
-                        command.setCommandsFromScript(command_name[1]);
+//                        command.setCommandsFromScript(command_name[1]);
+                        SettingExtraDataFromClient.setCommandsFromScript(command_name[1], command);
                         return command;
                     } catch (FileNotFoundException e) {
                         System.out.println("There is no file with such name. Try again.");
@@ -130,11 +130,14 @@ public class Invoker implements Serializable
                 case "Add":
                 case "RemoveGreater":
                 case "RemoveLower":
-                    command.setSpaceMarineFromClient(spaceMarine); break;
+                    SettingExtraDataFromClient.setSpaceMarineFromClient(spaceMarine, command);
+                    break;
                 case "Update": try
                 {
-                    command.setLongFromClient(Long.parseLong(commandLine.split(" ")[1]));
-                    command.setSpaceMarineFromClient(spaceMarine); break;
+//                    command.setLongFromClient(Long.parseLong(commandLine.split(" ")[1]));
+                    SettingExtraDataFromClient.setLongFromClient(Long.parseLong(commandLine.split(" ")[1]), command);
+                    SettingExtraDataFromClient.setSpaceMarineFromClient(spaceMarine, command);
+                    break;
                 }catch (NumberFormatException | ArrayIndexOutOfBoundsException e)
                 {
                     System.out.println("There is no number after Update.");
@@ -143,7 +146,8 @@ public class Invoker implements Serializable
 
                 case "RemoveAllByHealth": try
                 {
-                    command.setDoubleFromClient(Double.parseDouble(commandLine.split(" ")[1]));
+//                    command.setDoubleFromClient(Double.parseDouble(commandLine.split(" ")[1]));
+                    SettingExtraDataFromClient.setDoubleFromClient(Double.parseDouble(commandLine.split(" ")[1]), command);
                 }catch (NumberFormatException | ArrayIndexOutOfBoundsException e)
                 {
                     System.out.println("There is no number after Remove_All_By_Health.");
@@ -152,8 +156,10 @@ public class Invoker implements Serializable
 
                 case "RemoveByID": try
                 {
-                    command.setLongFromClient(Long.parseLong(commandLine.split(" ")[1]));
-                    command.setSpaceMarineFromClient(spaceMarine); break;
+//                    command.setLongFromClient(Long.parseLong(commandLine.split(" ")[1]));
+                    SettingExtraDataFromClient.setLongFromClient(Long.parseLong(commandLine.split(" ")[1]), command);
+                    SettingExtraDataFromClient.setSpaceMarineFromClient(spaceMarine, command);
+                    break;
                 }catch (NumberFormatException | ArrayIndexOutOfBoundsException e)
                 {
                     System.out.println("There is no number after Update.");

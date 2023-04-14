@@ -1,5 +1,6 @@
 package Command.ConcreteCommands;
 
+import BaseObjects.SpaceMarine;
 import Command.Command;
 import Command.Receiver;
 import Command.ClientReceiver;
@@ -15,7 +16,8 @@ public class RemoveLower extends Command {
 
     @Override
     public void execute() {
-        commandReceiver.remove_lower(this.getSpaceMarineFromClient());
+//        commandReceiver.remove_lower(this.getSpaceMarineFromClient());
+        commandReceiver.remove_lower((SpaceMarine) this.getExtraDataFromClient());
     }
 
     @Override

@@ -16,69 +16,20 @@ public abstract class Command implements Serializable
     public abstract void execute() throws IOException;
     public abstract Command clientExecute();
     protected abstract void writeInfo();
-    private float floatFromClient;
-    private long longFromClient;
-    private double doubleFromClient;
-    private SpaceMarine spaceMarineFromClient;
-    private ArrayList<Command> commandsFromScript;
+    private Object extraDataFromClient;
+//    private float floatFromClient;
+//    private long longFromClient;
+//    private double doubleFromClient;
+//    private SpaceMarine spaceMarineFromClient;
+//    private ArrayList<Command> commandsFromScript;
 
-    public void setFloatFromClient()
+    public void setExtraDataFromClient(Object extraDataFromClient)
     {
-        this.floatFromClient = MyFloatReader.read("Enter in float format: ");
-    }
-    public void setLongFromClient()
-    {
-        this.longFromClient = MyLongReader.read("Enter ID in long format: ");
+        this.extraDataFromClient = extraDataFromClient;
     }
 
-    public void setLongFromClient(long longFromClient)
+    public Object getExtraDataFromClient()
     {
-        this.longFromClient = longFromClient;
-    }
-
-    public void setDoubleFromClient() {this.doubleFromClient = MyPrimDoubleReader.read("Enter HP in double format: ");
-    }
-
-    public void setDoubleFromClient(double doubleFromClient)
-    {
-        this.doubleFromClient = doubleFromClient;
-    }
-
-    public void setSpaceMarineFromClient()
-    {
-        this.spaceMarineFromClient = SpaceMarineCreator.createSpaceMarine();
-    }
-
-    public void setSpaceMarineFromClient(SpaceMarine spaceMarineFromClient)
-    {
-        this.spaceMarineFromClient = spaceMarineFromClient;
-    }
-
-    public void setCommandsFromScript(String fileName) throws FileNotFoundException
-    {
-        Invoker invoker = new Invoker();
-        ClientReceiver clientReceiver = new ClientReceiver(invoker);
-        this.commandsFromScript = clientReceiver.getCommandsFromScript(fileName);
-    }
-
-    public float getFloatFromClient()
-    {
-        return floatFromClient;
-    }
-
-    public long getLongFromClient()
-    {
-        return longFromClient;
-    }
-    public double getDoubleFromClient() { return doubleFromClient; }
-
-    public SpaceMarine getSpaceMarineFromClient()
-    {
-        return spaceMarineFromClient;
-    }
-
-    public ArrayList<Command> getCommandsFromScript()
-    {
-        return commandsFromScript;
+        return extraDataFromClient;
     }
 }

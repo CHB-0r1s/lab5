@@ -39,21 +39,21 @@ public class ClientReceiver implements Serializable {
     }
     public Command add() {
         Command command = commandInvoker.invokerHashMap.get("add");
-        command.setSpaceMarineFromClient();
-        System.out.println("An element with ID has been created: " + command.getSpaceMarineFromClient().getId());
+        SettingExtraDataFromClient.setSpaceMarineFromClient(command);
+//        System.out.println("An element with ID has been created: " + command.getSpaceMarineFromClient().getId());
         return command;
     }
 
     public Command update() {
         Command command = commandInvoker.invokerHashMap.get("update");
-        command.setLongFromClient();
-        command.setSpaceMarineFromClient();
+        SettingExtraDataFromClient.setLongFromClient(command);
+        SettingExtraDataFromClient.setSpaceMarineFromClient(command);
         return command;
     }
 
     public Command remove_by_id() {
         Command command = commandInvoker.invokerHashMap.get("remove_by_id");
-        command.setLongFromClient();
+        SettingExtraDataFromClient.setLongFromClient(command);
         return command;
     }
 
@@ -78,13 +78,13 @@ public class ClientReceiver implements Serializable {
 
     public Command remove_greater() {
         Command command = commandInvoker.invokerHashMap.get("remove_greater");
-        command.setSpaceMarineFromClient();
+        SettingExtraDataFromClient.setSpaceMarineFromClient(command);
         return command;
     }
 
     public Command remove_lower() {
         Command command = commandInvoker.invokerHashMap.get("remove_lower");
-        command.setSpaceMarineFromClient();
+        SettingExtraDataFromClient.setSpaceMarineFromClient(command);
         return command;
     }
 
@@ -93,7 +93,8 @@ public class ClientReceiver implements Serializable {
         Command command = commandInvoker.invokerHashMap.get("execute_script");
         try
         {
-            command.setCommandsFromScript(path);
+//            command.setCommandsFromScript(path);
+            SettingExtraDataFromClient.setCommandsFromScript(path,command);
         } catch (FileNotFoundException e)
         {
             System.out.println("There is no file with such name.");
@@ -144,11 +145,14 @@ public class ClientReceiver implements Serializable {
                 case "Add":
                 case "RemoveGreater":
                 case "RemoveLower":
-                    command.setSpaceMarineFromClient(spaceMarine); break;
+                    SettingExtraDataFromClient.setSpaceMarineFromClient(spaceMarine, command);
+                    break;
                 case "Update": try
                 {
-                    command.setLongFromClient(Long.parseLong(commandLine.split(" ")[1]));
-                    command.setSpaceMarineFromClient(spaceMarine); break;
+//                    command.setLongFromClient(Long.parseLong(commandLine.split(" ")[1]));
+                    SettingExtraDataFromClient.setLongFromClient(Long.parseLong(commandLine.split(" ")[1]), command);
+                    SettingExtraDataFromClient.setSpaceMarineFromClient(spaceMarine, command);
+                    break;
                 }catch (NumberFormatException | ArrayIndexOutOfBoundsException e)
                 {
                     System.out.println("There is no number after Update.");
@@ -157,7 +161,8 @@ public class ClientReceiver implements Serializable {
 
                 case "RemoveAllByHealth": try
                 {
-                    command.setDoubleFromClient(Double.parseDouble(commandLine.split(" ")[1]));
+//                    command.setDoubleFromClient(Double.parseDouble(commandLine.split(" ")[1]));
+                    SettingExtraDataFromClient.setDoubleFromClient(Double.parseDouble(commandLine.split(" ")[1]), command);
                 }catch (NumberFormatException | ArrayIndexOutOfBoundsException e)
                 {
                     System.out.println("There is no number after Remove_All_By_Health.");
@@ -166,8 +171,10 @@ public class ClientReceiver implements Serializable {
 
                 case "RemoveByID": try
                 {
-                    command.setLongFromClient(Long.parseLong(commandLine.split(" ")[1]));
-                    command.setSpaceMarineFromClient(spaceMarine); break;
+//                    command.setLongFromClient(Long.parseLong(commandLine.split(" ")[1]));
+                    SettingExtraDataFromClient.setLongFromClient(Long.parseLong(commandLine.split(" ")[1]), command);
+                    SettingExtraDataFromClient.setSpaceMarineFromClient(spaceMarine, command);
+                    break;
                 }catch (NumberFormatException | ArrayIndexOutOfBoundsException e)
                 {
                     System.out.println("There is no number after Update.");
@@ -208,7 +215,7 @@ public class ClientReceiver implements Serializable {
 
     public Command remove_all_by_health() {
         Command command = commandInvoker.invokerHashMap.get("remove_all_by_health");
-        command.setDoubleFromClient();
+        SettingExtraDataFromClient.setDoubleFromClient(command);
         return command;
     }
 }

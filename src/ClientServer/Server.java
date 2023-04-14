@@ -39,7 +39,7 @@ public class Server
             {
                 Command command = (Command) objectInputStream.readObject();
                 // команда реализовалась
-                //command.execute();
+                command.execute();
                 System.out.println(command);
                 out.close();
                 while (scanner.hasNextLine())

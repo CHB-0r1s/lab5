@@ -1,5 +1,6 @@
 package Command.ConcreteCommands;
 
+import BaseObjects.SpaceMarine;
 import Command.Command;
 import Command.Receiver;
 import Command.ClientReceiver;
@@ -15,7 +16,8 @@ public class Add extends Command {
 
     @Override
     public void execute() {
-        commandReceiver.add(this.getSpaceMarineFromClient());
+//        commandReceiver.add(this.getSpaceMarineFromClient());
+        commandReceiver.add((SpaceMarine) this.getExtraDataFromClient());
     }
 
     @Override

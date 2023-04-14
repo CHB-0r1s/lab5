@@ -1,5 +1,6 @@
 package Command.ConcreteCommands;
 
+import BaseObjects.SpaceMarine;
 import Command.Command;
 import Command.Receiver;
 import Command.ClientReceiver;
@@ -15,7 +16,8 @@ public class RemoveGreater extends Command {
 
     @Override
     public void execute() {
-        commandReceiver.remove_greater(this.getSpaceMarineFromClient());
+//        commandReceiver.remove_greater(this.getSpaceMarineFromClient());
+        commandReceiver.remove_greater((SpaceMarine) this.getExtraDataFromClient());
     }
 
     @Override

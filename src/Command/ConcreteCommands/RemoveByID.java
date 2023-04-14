@@ -15,7 +15,8 @@ public class RemoveByID extends Command {
 
     @Override
     public void execute() {
-        commandReceiver.remove_by_id(this.getLongFromClient());
+//        commandReceiver.remove_by_id(this.getLongFromClient());
+        commandReceiver.remove_by_id((Long) this.getExtraDataFromClient());
     }
 
     @Override

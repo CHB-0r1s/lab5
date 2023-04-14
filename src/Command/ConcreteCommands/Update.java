@@ -15,7 +15,8 @@ public class Update extends Command {
 
     @Override
     public void execute() {
-        commandReceiver.update(this.getLongFromClient(), this.getSpaceMarineFromClient());
+//        commandReceiver.update(this.getLongFromClient(), this.getSpaceMarineFromClient());
+//        commandReceiver.update();
     }
 
     @Override
