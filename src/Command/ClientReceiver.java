@@ -1,6 +1,7 @@
 package Command;
 
 import BaseObjects.SpaceMarine;
+import Utils.MyReaders.MyLongReader;
 import Utils.SpaceMarineCreator;
 
 import java.io.*;
@@ -46,8 +47,9 @@ public class ClientReceiver implements Serializable {
 
     public Command update() {
         Command command = commandInvoker.invokerHashMap.get("update");
-        SettingExtraDataFromClient.setLongFromClient(command);
-        SettingExtraDataFromClient.setSpaceMarineFromClient(command);
+//        SettingExtraDataFromClient.setLongFromClient(command);
+//        SettingExtraDataFromClient.setSpaceMarineFromClient(command);
+        SettingExtraDataFromClient.setLongAndSpaceMarine(command);
         return command;
     }
 

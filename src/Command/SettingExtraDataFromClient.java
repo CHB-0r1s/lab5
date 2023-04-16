@@ -28,6 +28,14 @@ public interface SettingExtraDataFromClient
         command.setExtraDataFromClient(longFromClient);
     }
 
+    public static void setLongAndSpaceMarine(Command command)
+    {
+        ArrayList <Object> bufferListForIDObject = new ArrayList<>();
+        bufferListForIDObject.add(MyLongReader.read("Enter ID in long format: "));
+        bufferListForIDObject.add(SpaceMarineCreator.createSpaceMarine());
+        command.setExtraDataFromClient(bufferListForIDObject);
+    }
+
     public static void setDoubleFromClient(Command command)
     {
         command.setExtraDataFromClient(MyPrimDoubleReader.read("Enter HP in double format: "));
