@@ -27,35 +27,40 @@ public class Server
 
             File fileName = new File("outServer.txt");
 
-            ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
-
-            PrintStream out = new PrintStream(new FileOutputStream(fileName));
-            System.setOut(out);
-
-            Scanner scanner = new Scanner(fileName);
-
             try
             {
-                Command command = (Command) objectInputStream.readObject();
-                // команда реализовалась
-                command.execute();
-                System.out.println(command);
-                out.close();
-                while (scanner.hasNextLine())
-                {
-                    writer.write(scanner.nextLine() + "@");
-                }
-                writer.newLine();
-                writer.flush();
-            }
-            catch (ClassNotFoundException e)
-            {
-                System.out.println(e);
-            }
+                ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
 
-            catch (IllegalStateException | NullPointerException ex) {
-                System.out.println("There is no command " + ". For reference, use Ц help");
+                PrintStream out = new PrintStream(new FileOutputStream(fileName));
+                System.setOut(out);
+
+                Scanner scanner = new Scanner(fileName);
+
+                try
+                {
+                    Command command = (Command) objectInputStream.readObject();
+                    // команда реализовалась
+                    command.execute();
+                    System.out.println(command);
+                    out.close();
+                    while (scanner.hasNextLine())
+                    {
+                        writer.write(scanner.nextLine() + "@");
+                    }
+                    writer.newLine();
+                    writer.flush();
+                } catch (ClassNotFoundException e)
+                {
+                    System.out.println(e);
+                } catch (IllegalStateException | NullPointerException ex)
+                {
+                    System.out.println("There is no command " + ". For reference, use Ц help");
+                }
+            }
+            catch (SocketException e)
+            {
+                System.out.println("Client sent nothing and left.");
             }
         }
     }

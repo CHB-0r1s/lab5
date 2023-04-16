@@ -17,8 +17,7 @@ public interface GettingPort
         catch (InputMismatchException e)
         {
             System.out.println("Not right input. Try again.");
-            getPort();
-            return 0;
+            return getPort();
         }
     }
 }
