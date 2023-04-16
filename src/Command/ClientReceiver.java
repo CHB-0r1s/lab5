@@ -211,7 +211,26 @@ public class ClientReceiver implements Serializable {
             commands.add(command);
         }
         commands.removeAll(Collections.singleton(null));
-        return commands;
+        return getListInsideExecuteScript(commands);
+    }
+
+    private ArrayList<Command> getListInsideExecuteScript(ArrayList<Command> commands)
+    {
+        ArrayList<Command> buffCommands = new ArrayList<>();
+        for(Command command : commands)
+        {
+            if (command.getClass().getSimpleName().equals("ExecuteScript"))
+            {
+                ArrayList<Command> recursiveListCommand = getListInsideExecuteScript((ArrayList<Command>) command.getExtraDataFromClient());            for (Command com : recursiveListCommand)
+            {
+                buffCommands.add(com);
+            }
+            } else
+            {
+                buffCommands.add(command);
+            }
+        }
+        return buffCommands;
     }
 
 
