@@ -1,8 +1,11 @@
 package Command.ConcreteCommands;
 
+import BaseObjects.SpaceMarine;
 import Command.Command;
 import Command.Receiver;
 import Command.ClientReceiver;
+
+import java.util.ArrayList;
 
 public class Update extends Command {
     private final Receiver commandReceiver;
@@ -17,6 +20,8 @@ public class Update extends Command {
     public void execute() {
 //        commandReceiver.update(this.getLongFromClient(), this.getSpaceMarineFromClient());
 //        commandReceiver.update();
+        ArrayList<Object> buffer = (ArrayList<Object>) this.getExtraDataFromClient();
+        commandReceiver.update((Long) buffer.get(0), (SpaceMarine) buffer.get(1));
     }
 
     @Override
