@@ -12,7 +12,7 @@ import Utils.SpaceMarineCreator;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-public interface SettingExtraDataFromClient
+public class SettingExtraDataFromClient
 {
     public static void setFloatFromClient(Command command)
     {
