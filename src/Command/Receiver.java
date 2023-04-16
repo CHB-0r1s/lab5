@@ -33,7 +33,7 @@ public class Receiver implements Serializable{
     }
 
     public void add(SpaceMarine spaceMarineFromClient) {
-        spaceMarineFromClient.setId(228);
+        spaceMarineFromClient.setId(228L);
         System.out.println("An element with ID has been created: " + spaceMarineFromClient.getId());
         ManagerOfCollection.add(spaceMarineFromClient);
     }

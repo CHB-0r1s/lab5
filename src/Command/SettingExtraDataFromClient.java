@@ -45,11 +45,14 @@ public class SettingExtraDataFromClient
 
     public static void setSpaceMarineFromClient(Command command)
     {
-        command.setExtraDataFromClient(SpaceMarineCreator.createSpaceMarine());
+        SpaceMarine spaceMarine = SpaceMarineCreator.createSpaceMarine();
+        spaceMarine.setId(null);
+        command.setExtraDataFromClient(spaceMarine);
     }
 
     public static void setSpaceMarineFromClient(SpaceMarine spaceMarineFromClient, Command command)
     {
+        spaceMarineFromClient.setId(null);
         command.setExtraDataFromClient(spaceMarineFromClient);
     }
 
