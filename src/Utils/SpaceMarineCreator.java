@@ -21,11 +21,11 @@ public class SpaceMarineCreator {
         Float x = MyFloatReader.read("Enter the x (float) coordinate ");
         double y = MyPrimDoubleReader.read("Enter the y (double) coordinate ");
         float health = MyPrimFloatReader.read("Enter the health of the object (float) ", ">0");
-        AstartesCategory astartesCategory = MyAstartesCategoryReader.read("Enter the category of the object.", false);
+        AstartesCategory astartesCategory = MyAstartesCategoryReader.read("Enter the category of the object. ", false);
         Weapon weapon = MyWeaponReader.read("Enter the type of weapon", true);
         MeleeWeapon meleeWeapon = MyMeleeWeaponReader.read("Enter the type of melee weapon", false);
-        String chapterName = MyStringReader.read("Enter the name of the part", false);
-        String parentLegion = MyStringReader.read("Enter the parentLegion name", true);
+        String chapterName = MyStringReader.read("Enter the name of the part ", false);
+        String parentLegion = MyStringReader.read("Enter the parentLegion name ", true);
 
         return new SpaceMarine(name, new Coordinates(x, y), health, astartesCategory, weapon, meleeWeapon, new Chapter(chapterName, parentLegion));
     }
