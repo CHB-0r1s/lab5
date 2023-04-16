@@ -1,12 +1,9 @@
 package Command;
 
 import BaseObjects.SpaceMarine;
-import Command.ClientReceiver;
-import Command.Command;
-import Command.Invoker;
 import Utils.MyReaders.MyFloatReader;
 import Utils.MyReaders.MyLongReader;
-import Utils.MyReaders.MyPrimDoubleReader;
+import Utils.MyReaders.MyDoubleReader;
 import Utils.SpaceMarineCreator;
 
 import java.io.FileNotFoundException;
@@ -38,7 +35,7 @@ public class SettingExtraDataFromClient
 
     public static void setDoubleFromClient(Command command)
     {
-        command.setExtraDataFromClient(MyPrimDoubleReader.read("Enter HP in double format: "));
+        command.setExtraDataFromClient(MyDoubleReader.read("Enter HP in double format: "));
     }
 
     public static void setDoubleFromClient(double doubleFromClient, Command command)

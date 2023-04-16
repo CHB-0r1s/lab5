@@ -1,15 +1,7 @@
 package Command;
 
-import BaseObjects.SpaceMarine;
-import Utils.MyReaders.MyFloatReader;
-import Utils.MyReaders.MyLongReader;
-import Utils.MyReaders.MyPrimDoubleReader;
-import Utils.SpaceMarineCreator;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public abstract class Command implements Serializable
 {

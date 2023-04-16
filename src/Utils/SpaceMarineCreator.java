@@ -3,7 +3,6 @@ package Utils;
 import BaseObjects.*;
 import Utils.MyReaders.*;
 
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 public class SpaceMarineCreator {
@@ -19,8 +18,8 @@ public class SpaceMarineCreator {
     public static SpaceMarine createSpaceMarine() {
         String name = MyStringReader.read("Enter the name of the object ", false);
         Float x = MyFloatReader.read("Enter the x (float) coordinate ");
-        double y = MyPrimDoubleReader.read("Enter the y (double) coordinate ");
-        float health = MyPrimFloatReader.read("Enter the health of the object (float) ", ">0");
+        double y = MyDoubleReader.read("Enter the y (double) coordinate ");
+        float health = MyFloatReader.read("Enter the health of the object (float) ", ">0");
         AstartesCategory astartesCategory = MyAstartesCategoryReader.read("Enter the category of the object. ", false);
         Weapon weapon = MyWeaponReader.read("Enter the type of weapon", true);
         MeleeWeapon meleeWeapon = MyMeleeWeaponReader.read("Enter the type of melee weapon", false);

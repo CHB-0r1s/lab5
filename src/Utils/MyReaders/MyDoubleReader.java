@@ -2,7 +2,7 @@ package Utils.MyReaders;
 
 import java.util.Scanner;
 
-public class MyPrimDoubleReader {
+public class MyDoubleReader {
     public static double read(String consoleMessage) {
         Scanner scanner = new Scanner(System.in);
         System.out.print(consoleMessage);
