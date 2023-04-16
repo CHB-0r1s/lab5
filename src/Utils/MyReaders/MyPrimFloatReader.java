@@ -14,28 +14,32 @@ public class MyPrimFloatReader {
                 switch (valueParam) {
                     case (">0"):
                         if (result <= 0) {
-                            System.out.println("Вы ввели не подходящее значение1. " + "Оно должно быть " + valueParam + ". Попробуйте снова: ");
+                            System.out.println("Вы ввели не подходящее значение. " + "Оно должно быть " + valueParam + ". Попробуйте снова: ");
+                            continue;
                         }
                         else {
                             break;
                         }
                     case ("<0"):
                         if (result >= 0) {
-                            System.out.println("Вы ввели не подходящее значение2. " + "Оно должно быть " + valueParam + ". Попробуйте снова: ");
+                            System.out.println("Вы ввели не подходящее значение. " + "Оно должно быть " + valueParam + ". Попробуйте снова: ");
+                            continue;
                         }
                         else {
                             break;
                         }
                     case (">=0"):
                         if (result < 0) {
-                            System.out.println("Вы ввели не подходящее значение3. " + "Оно должно быть " + valueParam + ". Попробуйте снова: ");
+                            System.out.println("Вы ввели не подходящее значение. " + "Оно должно быть " + valueParam + ". Попробуйте снова: ");
+                            continue;
                         }
                         else {
                             break;
                         }
                     case ("<=0"):
                         if (result < 0) {
-                            System.out.println("Вы ввели не подходящее значение4. " + "Оно должно быть " + valueParam + ". Попробуйте снова: ");
+                            System.out.println("Вы ввели не подходящее значение. " + "Оно должно быть " + valueParam + ". Попробуйте снова: ");
+                            continue;
                         }
                         else {
                             break;
