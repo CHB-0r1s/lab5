@@ -4,6 +4,7 @@ import java.io.*;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import BaseObjects.*;
 
@@ -87,6 +88,18 @@ public class ManagerOfCollection {
 
     public static void clear() {
         myCollection.clear();
+    }
+
+    public static Long maxID() {
+        AtomicLong x = new AtomicLong();
+        myCollection.forEach(
+                spaceMarine -> {
+                    if (spaceMarine.getId() > x.get()) {
+                        x.set(spaceMarine.getId());
+                    }
+                }
+        );
+        return x.longValue();
     }
 
     public static void remove_greater(SpaceMarine spaceMarine) {
