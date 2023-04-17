@@ -6,13 +6,14 @@ import Command.Receiver;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 import Command.ClientReceiver;
 public class ExecuteScript extends Command {
     private final Receiver commandReceiver;
-    private final ClientReceiver clientReceive = null;
+    private final ClientReceiver clientReceiver = null;
     private static String path;
 
     public ExecuteScript(Receiver commandReceiver) {
@@ -20,21 +21,17 @@ public class ExecuteScript extends Command {
     }
 
     @Override
-    public void execute() throws StackOverflowError {
-        /*try {
-            commandReceiver.execute_script(args[1]); }
-            else { System.out.println("Invalid number of arguments: expected 1, found 0."); }
-        } catch (StackOverflowError ex) {
-            System.out.println("Stack overflow due to cyclic recursion");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
+    public void execute() throws StackOverflowError, IOException {
+        ArrayList<Command> commands = (ArrayList<Command>) this.getExtraDataFromClient();
+        for (Command value : commands) {
+            value.execute();
+        }
     }
 
     @Override
     public Command clientExecute() {
 
-        return clientReceive.execute_script(getFileName());
+        return clientReceiver.execute_script(getFileName());
     }
     private final String getFileName()
     {

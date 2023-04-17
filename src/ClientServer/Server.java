@@ -2,10 +2,12 @@ package ClientServer;
 
 import BaseObjects.SpaceMarine;
 import Command.Command;
+import Command.ConcreteCommands.ExecuteScript;
 import Utils.ManagerOfCollection;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Server
@@ -40,7 +42,6 @@ public class Server
                 try
                 {
                     Command command = (Command) objectInputStream.readObject();
-                    // команда реализовалась
                     command.execute();
                     System.out.println(command);
                     out.close();

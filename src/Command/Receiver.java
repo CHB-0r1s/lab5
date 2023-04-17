@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-
 public class Receiver implements Serializable{
     public final Invoker commandInvoker;
 
@@ -33,7 +32,8 @@ public class Receiver implements Serializable{
     }
 
     public void add(SpaceMarine spaceMarineFromClient) {
-        spaceMarineFromClient.setId(228L);
+        Long id = ManagerOfCollection.maxID() + 1;
+        spaceMarineFromClient.setId(id);
         System.out.println("An element with ID has been created: " + spaceMarineFromClient.getId());
         ManagerOfCollection.add(spaceMarineFromClient);
     }
@@ -99,38 +99,6 @@ public class Receiver implements Serializable{
         ManagerOfCollection.save();
     }
 
-    public void execute_script(String path) throws IOException {
-        String line;
-        String command;
-        ArrayList<String> parameters = new ArrayList<>();
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new BufferedInputStream(new FileInputStream(path)), StandardCharsets.UTF_8))) {
-            while ((line = bufferedReader.readLine()) != null) {
-                if (line.split(" ")[0].matches("add|update|remove_greater|remove_lower")) {
-                    command = line;
-                    for (int i = 0; i < 9; i++) {
-                        if (line != null) {
-                            line = bufferedReader.readLine();
-                            parameters.add(line);
-                        } else { System.out.println("There are not enough parameters to create an object."); break; }
-                    }
-                    SpaceMarine spaceMarine = SpaceMarineCreator.createScriptSpaceMarine(parameters);
-                    switch (command.split(" ")[0]) {
-                        case "add" -> ManagerOfCollection.add(spaceMarine);
-                        case "update" -> ManagerOfCollection.update(spaceMarine, Long.parseLong(command.split(" ")[1]));
-                        case "remove_greater" -> ManagerOfCollection.remove_greater(spaceMarine);
-                        case "remove_lower" -> ManagerOfCollection.remove_lower(spaceMarine);
-                    }
-                } else if (line.split(" ")[0].equals("execute_script")
-                        && line.split(" ")[1].equals(ExecuteScript.getPath())) { System.out.println("An attempt to recursively call the script was stopped."); }
-                else { commandInvoker.invoke(line.split(" ")); }
-                }
-            }
-        catch (IOException e) {
-            System.out.println("Îøèáêà! " + e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
     public void history() {
         if (commandInvoker.invokerListOfCommand.size() >= 11) {
             for (int i = commandInvoker.invokerListOfCommand.size() - 1; i > commandInvoker.invokerListOfCommand.size() - 11; i--) {
