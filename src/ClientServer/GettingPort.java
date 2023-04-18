@@ -9,15 +9,22 @@ public interface GettingPort
     {
         Scanner reader = new Scanner(System.in);
         System.out.println("Write a port (in integer format, more than 1024):");
-        try
+        while (true)
         {
-            int number = reader.nextInt();
-            return number;
-        }
-        catch (InputMismatchException e)
-        {
-            System.out.println("Not right input. Try again.");
-            return getPort();
+            try
+            {
+                int number = reader.nextInt();
+                if (number <= 1024)
+                {
+                    System.out.println("Port must be more than 1024.");
+                } else
+                {
+                    return number;
+                }
+            } catch (InputMismatchException e)
+            {
+                System.out.println("Not right input. Try again.");
+            }
         }
     }
 }

@@ -2,12 +2,14 @@ package ClientServer;
 
 import BaseObjects.SpaceMarine;
 import Command.Command;
-import Command.ConcreteCommands.ExecuteScript;
 import Utils.ManagerOfCollection;
 
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Server
@@ -20,10 +22,16 @@ public class Server
         }
         int port = GettingPort.getPort();
 
-        ServerSocket serverSocket = new ServerSocket(port);
+        ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
+        ServerSocket serverSocket = serverSocketChannel.socket();
+        serverSocket.bind(new InetSocketAddress(port));
+        Selector selector = Selector.open();
+        serverSocketChannel.configureBlocking(false);
+        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
         while (true)
         {
+            selector.select();
             Socket clientSocket = serverSocket.accept();
             System.out.println("Client accepted");
 
@@ -42,6 +50,7 @@ public class Server
                 try
                 {
                     Command command = (Command) objectInputStream.readObject();
+                    // команда реализовалась
                     command.execute();
                     System.out.println(command);
                     out.close();

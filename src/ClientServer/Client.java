@@ -11,10 +11,9 @@ public class Client
 {
     public static void main(String[] args)
     {
-        int port = GettingPort.getPort();
         try
         {
-            Socket clientSocket = new Socket("127.0.0.1", port);
+            Socket clientSocket = connectToServer();
             Invoker commandInvoker = new Invoker();
             BufferedWriter writer = new BufferedWriter(
                     new OutputStreamWriter(clientSocket.getOutputStream()));
@@ -24,10 +23,6 @@ public class Client
             String getMsg = reader.readLine().replaceAll("@", "\n");
             System.out.println(getMsg);
 
-        }
-        catch (UnknownHostException e)
-        {
-            System.out.println("No connection.");
         } catch (IOException e)
         {
             throw new RuntimeException(e);
@@ -36,21 +31,44 @@ public class Client
 
     private static void sendingCommand(Invoker commandInvoker, Socket clientSocket, BufferedWriter writer)
     {
-        try(Scanner scanner = new Scanner(System.in)) {
-            //while (scanner.hasNextLine()) {
+        while (true)
+        {
+            try (Scanner scanner = new Scanner(System.in))
+            {
+                //while (scanner.hasNextLine()) {
                 Command command = commandInvoker.invokeForClient(scanner.nextLine().trim().split("\s+"));
-                if (command == null)
+                if (command != null)
                 {
-                    sendingCommand(commandInvoker, clientSocket, writer);
+                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+                    objectOutputStream.writeObject(command);
+                    writer.newLine();
+                    writer.flush();
                     return;
                 }
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
-                objectOutputStream.writeObject(command);
-                writer.newLine();
-                writer.flush();
-            //}
-        }catch (Exception e) {
-            throw new RuntimeException(e);
+                //}
+            } catch (Exception e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private static Socket connectToServer()
+    {
+        while (true)
+        {
+            String host = GettingHost.getHost();
+            int port = GettingPort.getPort();
+            try
+            {
+                return new Socket(host, port);
+            } catch (UnknownHostException | ConnectException e)
+            {
+                System.out.println("No connection.");
+            } catch (IOException e)
+            {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
