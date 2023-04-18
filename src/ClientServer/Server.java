@@ -1,13 +1,13 @@
 package ClientServer;
 
-import BaseObjects.SpaceMarine;
 import Command.Command;
-import Command.ConcreteCommands.ExecuteScript;
 import Utils.ManagerOfCollection;
 
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
 import java.util.Scanner;
 
 public class Server
@@ -18,12 +18,18 @@ public class Server
         if (args[0].length() > 0) {
             ManagerOfCollection.fillFromXml(args[0]);
         }
-        int port = GettingPort.getPort();
+        int port = MyPortReader.read("Write a port (in integer format, more than 1024):");
 
-        ServerSocket serverSocket = new ServerSocket(port);
+        ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
+        ServerSocket serverSocket = serverSocketChannel.socket();
+        serverSocket.bind(new InetSocketAddress(port));
+        Selector selector = Selector.open();
+        serverSocketChannel.configureBlocking(false);
+        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
         while (true)
         {
+            selector.select();
             Socket clientSocket = serverSocket.accept();
             System.out.println("Client accepted");
 

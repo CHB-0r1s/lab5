@@ -21,7 +21,10 @@ public class Exit extends Command{
         }
 
     @Override
-    public Command clientExecute() {
+    public Command clientExecute()
+    {
+        System.out.println("Program is ending...");
+        System.exit(0);
         return clientReceiver.exit();
     }
 
