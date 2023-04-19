@@ -11,30 +11,42 @@ public class Client
 {
     public static void main(String[] args)
     {
-
-        try
+        String host = MyHostReader.read("Write a host (in format IPv4):");
+        int port = MyPortReader.read("Write a port (in integer format, more than 1024):");
+        Scanner scanner = new Scanner(System.in);
+        while (true)
         {
-            Socket clientSocket = getConnection();
-            Invoker commandInvoker = new Invoker();
-            BufferedWriter writer = new BufferedWriter(
-                    new OutputStreamWriter(clientSocket.getOutputStream()));
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(clientSocket.getInputStream()));
-            sendingCommand(commandInvoker, clientSocket, writer);
-            String getMsg = reader.readLine().replaceAll("@", "\n");
-            System.out.println(getMsg);
+            try
+            {
+                Socket clientSocket = new Socket(host, port);
 
-        }
-        catch (IOException e)
-        {
-            System.out.println("Something went wrong...");
-            System.exit(-1);
+                Invoker commandInvoker = new Invoker();
+                BufferedWriter writer = new BufferedWriter(
+                        new OutputStreamWriter(clientSocket.getOutputStream()));
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(clientSocket.getInputStream()));
+
+                sendingCommand(commandInvoker, clientSocket, writer, scanner);
+
+                String getMsg = reader.readLine().replaceAll("@", "\n");
+                System.out.println(getMsg);
+                clientSocket.close();
+                Thread.sleep(1000);
+
+            } catch (IOException e)
+            {
+                System.out.println("Something went wrong...");
+                System.exit(-1);
+            } catch (InterruptedException e)
+            {
+                throw new RuntimeException(e);
+            }
         }
     }
 
-    private static void sendingCommand(Invoker commandInvoker, Socket clientSocket, BufferedWriter writer)
+    private static void sendingCommand(Invoker commandInvoker, Socket clientSocket, BufferedWriter writer, Scanner scanner)
     {
-        try(Scanner scanner = new Scanner(System.in)) {
+        try{
             while (scanner.hasNextLine()) {
                 Command command = commandInvoker.invokeForClient(scanner.nextLine().trim().split("\s+"));
                 if (command != null)
@@ -46,18 +58,16 @@ public class Client
                     return;
                 }
             }
-        }catch (Exception e) {
-            throw new RuntimeException(e);
+        }catch (Exception e)
+        {
+            System.out.println(e.getMessage());
         }
     }
 
-    private static Socket getConnection() throws IOException
+    private static Socket getConnection(String host, int port) throws IOException
     {
         while (true)
         {
-            String host = MyHostReader.read("Write a host (in format IPv4):");
-            int port = MyPortReader.read("Write a port (in integer format, more than 1024):");
-
             try
             {
                 return new Socket(host, port);
