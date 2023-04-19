@@ -49,6 +49,7 @@ public class Server
                 {
                     Command command = (Command) objectInputStream.readObject();
                     command.execute();
+                    ManagerOfCollection.save();
                     System.out.println(command);
                     out.close();
                     while (scanner.hasNextLine())
