@@ -5,6 +5,8 @@ import Command.Command;
 import Command.Receiver;
 import Command.ClientReceiver;
 
+import java.io.IOException;
+
 public class RemoveGreater extends Command {
     private final Receiver commandReceiver;
     private final ClientReceiver clientReceiver;
@@ -15,7 +17,7 @@ public class RemoveGreater extends Command {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws IOException {
 //        commandReceiver.remove_greater(this.getSpaceMarineFromClient());
         commandReceiver.remove_greater((SpaceMarine) this.getExtraDataFromClient());
     }

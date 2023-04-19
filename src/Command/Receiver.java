@@ -31,11 +31,12 @@ public class Receiver implements Serializable{
         ManagerOfCollection.show();
     }
 
-    public void add(SpaceMarine spaceMarineFromClient) {
+    public void add(SpaceMarine spaceMarineFromClient) throws IOException {
         Long id = ManagerOfCollection.maxID() + 1;
         spaceMarineFromClient.setId(id);
         System.out.println("An element with ID has been created: " + spaceMarineFromClient.getId());
         ManagerOfCollection.add(spaceMarineFromClient);
+        ManagerOfCollection.save();
     }
 
     public void update(Long id, SpaceMarine spaceMarineFromClient) {
@@ -43,11 +44,14 @@ public class Receiver implements Serializable{
             long ID = id;
             if (ManagerOfCollection.elemExist(ID)) {
                 ManagerOfCollection.update(spaceMarineFromClient, ID);
+                ManagerOfCollection.save();
                 System.out.println("Update completed");
             }
             else {System.out.println("The item with this ID is not in the collection.");}
         } catch (NumberFormatException e) {
             System.out.println("The command is not executed. You have entered an incorrect argument.");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -63,8 +67,9 @@ public class Receiver implements Serializable{
         }
     }
 
-    public void clear() {
+    public void clear() throws IOException {
         ManagerOfCollection.clear();
+        ManagerOfCollection.save();
     }
 
     public void exit() throws IOException {
@@ -87,12 +92,14 @@ public class Receiver implements Serializable{
         System.exit(0);
     }
 
-    public void remove_greater(SpaceMarine spaceMarineFromClient) {
+    public void remove_greater(SpaceMarine spaceMarineFromClient) throws IOException {
         ManagerOfCollection.remove_greater(spaceMarineFromClient);
+        ManagerOfCollection.save();
     }
 
-    public void remove_lower(SpaceMarine spaceMarineFromClient) {
+    public void remove_lower(SpaceMarine spaceMarineFromClient) throws IOException {
         ManagerOfCollection.remove_lower(spaceMarineFromClient);
+        ManagerOfCollection.save();
     }
 
     public void save() throws IOException {
@@ -110,10 +117,11 @@ public class Receiver implements Serializable{
         }
     }
 
-    public void remove_all_by_health(Double health) {
+    public void remove_all_by_health(Double health) throws IOException {
         double HP = health;
 
         ManagerOfCollection.remove_all_by_health(HP);
+        ManagerOfCollection.save();
     }
 
     public void max_by_melee_weapon() {

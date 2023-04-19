@@ -5,6 +5,8 @@ import Command.Command;
 import Command.Receiver;
 import Command.ClientReceiver;
 
+import java.io.IOException;
+
 public class RemoveLower extends Command {
     private final Receiver commandReceiver;
     private final ClientReceiver clientReceiver;
@@ -15,7 +17,7 @@ public class RemoveLower extends Command {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws IOException {
 //        commandReceiver.remove_lower(this.getSpaceMarineFromClient());
         commandReceiver.remove_lower((SpaceMarine) this.getExtraDataFromClient());
     }

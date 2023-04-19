@@ -4,6 +4,8 @@ import Command.Command;
 import Command.Receiver;
 import Command.ClientReceiver;
 
+import java.io.IOException;
+
 public class RemoveAllByHealth extends Command {
     private final Receiver commandReceiver;
     private final ClientReceiver clientReceiver;
@@ -14,7 +16,7 @@ public class RemoveAllByHealth extends Command {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws IOException {
 //        commandReceiver.remove_all_by_health(this.getDoubleFromClient());
         commandReceiver.remove_all_by_health((Double) this.getExtraDataFromClient());
     }

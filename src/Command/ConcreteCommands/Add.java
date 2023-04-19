@@ -5,6 +5,8 @@ import Command.Command;
 import Command.Receiver;
 import Command.ClientReceiver;
 
+import java.io.IOException;
+
 public class Add extends Command {
     private final Receiver commandReceiver;
     private final ClientReceiver clientReceiver;
@@ -15,7 +17,7 @@ public class Add extends Command {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws IOException {
 //        commandReceiver.add(this.getSpaceMarineFromClient());
         commandReceiver.add((SpaceMarine) this.getExtraDataFromClient());
     }
