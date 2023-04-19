@@ -211,6 +211,7 @@ public class ClientReceiver implements Serializable {
             commands.add(command);
         }
         commands.removeAll(Collections.singleton(null));
+        fileNamesForNoRecursion.remove(fileNamesForNoRecursion.size()-1);
         return getListInsideExecuteScript(commands);
     }
 
