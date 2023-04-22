@@ -8,5 +8,15 @@ FLAMER
 MANREAPER
 2
 123
+add
+newnew
+12345
+12345
+12345
+SCOUT
+FLAMER
+MANREAPER
+2
+123
 execute_script script2.txt
 history
