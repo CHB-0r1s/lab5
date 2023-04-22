@@ -1,7 +1,6 @@
 package Command;
 
 import BaseObjects.SpaceMarine;
-import Utils.MyReaders.MyLongReader;
 import Utils.SpaceMarineCreator;
 
 import java.io.*;
@@ -10,8 +9,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class ClientReceiver implements Serializable {
-    public final Invoker commandInvoker;
-    //i think it should be private btw
+    private final Invoker commandInvoker;
 
     public ClientReceiver(Invoker commandInvoker) {
         this.commandInvoker = commandInvoker;
@@ -39,21 +37,21 @@ public class ClientReceiver implements Serializable {
         return commandInvoker.invokerHashMap.get("print_unique_chapter");
     }
     public Command add() {
+        commandInvoker.fillHashMap();
         Command command = commandInvoker.invokerHashMap.get("add");
         SettingExtraDataFromClient.setSpaceMarineFromClient(command);
-//        System.out.println("An element with ID has been created: " + command.getSpaceMarineFromClient().getId());
         return command;
     }
 
     public Command update() {
+        commandInvoker.fillHashMap();
         Command command = commandInvoker.invokerHashMap.get("update");
-//        SettingExtraDataFromClient.setLongFromClient(command);
-//        SettingExtraDataFromClient.setSpaceMarineFromClient(command);
         SettingExtraDataFromClient.setLongAndSpaceMarine(command);
         return command;
     }
 
     public Command remove_by_id() {
+        commandInvoker.fillHashMap();
         Command command = commandInvoker.invokerHashMap.get("remove_by_id");
         SettingExtraDataFromClient.setLongFromClient(command);
         return command;
@@ -61,44 +59,30 @@ public class ClientReceiver implements Serializable {
 
     public Command exit() {
         return commandInvoker.invokerHashMap.get("exit");
-        /* System.out.println("Save you progress in collection? [yes/no]");
 
-        Scanner exitScanner = new Scanner(System.in);
-        while (true) {
-            if (exitScanner.hasNextLine()) {
-                String ans = exitScanner.nextLine();
-                if (ans.equals("yes")) {
-                    ManagerOfCollection.save();
-                    break;
-                } else if (ans.equals("no")) {
-                    break;
-                }
-                else {System.out.println("Invalid answer. [yes/no]");}
-            }
-        }*/
     }
 
     public Command remove_greater() {
+        commandInvoker.fillHashMap();
         Command command = commandInvoker.invokerHashMap.get("remove_greater");
         SettingExtraDataFromClient.setSpaceMarineFromClient(command);
         return command;
     }
 
     public Command remove_lower() {
+        commandInvoker.fillHashMap();
         Command command = commandInvoker.invokerHashMap.get("remove_lower");
         SettingExtraDataFromClient.setSpaceMarineFromClient(command);
         return command;
     }
 
-    public Command execute_script(String path)
-    {
+    public Command execute_script(String path) {
+        commandInvoker.fillHashMap();
         Command command = commandInvoker.invokerHashMap.get("execute_script");
-        try
-        {
-//            command.setCommandsFromScript(path);
+        try {
             SettingExtraDataFromClient.setCommandsFromScript(path,command);
-        } catch (FileNotFoundException e)
-        {
+        }
+        catch (FileNotFoundException e) {
             System.out.println("There is no file with such name.");
         }
         return command;
@@ -142,6 +126,7 @@ public class ClientReceiver implements Serializable {
                 spaceMarine = SpaceMarineCreator.createScriptSpaceMarine(parameters);
             }
             command = invoker.invokerHashMap.get(commandLine.split(" ")[0]);
+            invoker.fillHashMap();
             switch (command.getClass().getSimpleName())
             {
                 case "Add":
@@ -222,10 +207,11 @@ public class ClientReceiver implements Serializable {
         {
             if (command.getClass().getSimpleName().equals("ExecuteScript"))
             {
-                ArrayList<Command> recursiveListCommand = getListInsideExecuteScript((ArrayList<Command>) command.getExtraDataFromClient());            for (Command com : recursiveListCommand)
-            {
-                buffCommands.add(com);
-            }
+                ArrayList<Command> recursiveListCommand = getListInsideExecuteScript((ArrayList<Command>) command.getExtraDataFromClient());
+                for (Command com : recursiveListCommand)
+                {
+                    buffCommands.add(com);
+                }
             } else
             {
                 buffCommands.add(command);
@@ -236,6 +222,7 @@ public class ClientReceiver implements Serializable {
 
 
     public Command remove_all_by_health() {
+        commandInvoker.fillHashMap();
         Command command = commandInvoker.invokerHashMap.get("remove_all_by_health");
         SettingExtraDataFromClient.setDoubleFromClient(command);
         return command;

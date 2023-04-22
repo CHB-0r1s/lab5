@@ -37,6 +37,9 @@ public class Receiver implements Serializable{
         System.out.println("An element with ID has been created: " + spaceMarineFromClient.getId());
         ManagerOfCollection.add(spaceMarineFromClient);
         ManagerOfCollection.save();
+        try { Thread.sleep(100);}
+        catch (Exception e) {System.out.println("Передержка");}
+
     }
 
     public void update(Long id, SpaceMarine spaceMarineFromClient) {

@@ -3,11 +3,8 @@ package Command.ConcreteCommands;
 import Command.Command;
 import Command.Receiver;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 import Command.ClientReceiver;
@@ -26,6 +23,7 @@ public class ExecuteScript extends Command {
         for (Command value : commands) {
             value.execute();
         }
+        System.out.println("23break");
     }
 
     @Override
@@ -33,15 +31,12 @@ public class ExecuteScript extends Command {
 
         return clientReceiver.execute_script(getFileName());
     }
-    private final String getFileName()
+    private String getFileName()
     {
         System.out.println("Write file name:");
         Scanner scanner = new Scanner(System.in);
-        String line = scanner.nextLine();
-        return line;
+        return scanner.nextLine();
     }
-
-    //idk how to change this cringe story
 
     @Override
     protected void writeInfo() {
