@@ -140,6 +140,7 @@ public class ClientReceiver implements Serializable {
                     }
                 }
                 spaceMarine = SpaceMarineCreator.createScriptSpaceMarine(parameters);
+                parameters.clear();
             }
             command = invoker.invokerHashMap.get(commandLine.split(" ")[0]);
             switch (command.getClass().getSimpleName())
