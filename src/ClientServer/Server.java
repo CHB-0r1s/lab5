@@ -1,5 +1,5 @@
 package ClientServer;
-
+// Да начнутся голодные игры!
 import Command.Command;
 import Utils.ManagerOfCollection;
 
