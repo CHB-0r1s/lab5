@@ -2,6 +2,8 @@ package ClientServer;
 
 import Command.Command;
 import Command.Invoker;
+import User.User;
+import User.UserCreator;
 
 import java.io.*;
 import java.net.*;
@@ -14,6 +16,8 @@ public class Client
         String host = MyHostReader.read("Write a host (in format IPv4):");
         int port = MyPortReader.read("Write a port (in integer format, more than 1024):");
         Scanner scanner = new Scanner(System.in);
+        boolean firstTime = true;
+
         while (true)
         {
             try
@@ -26,12 +30,24 @@ public class Client
                 BufferedReader reader = new BufferedReader(
                         new InputStreamReader(clientSocket.getInputStream()));
 
-                sendingCommand(commandInvoker, clientSocket, writer, scanner);
+                if(firstTime)
+                {
+                    sendingUser(clientSocket, writer, scanner);
+                    firstTime = false;
+                }
+                if(getResponse(reader))
+                {
+                    sendingCommand(commandInvoker, clientSocket, writer, scanner);
 
-                String getMsg = reader.readLine().replaceAll("@", "\n");
-                System.out.println(getMsg);
-                clientSocket.close();
-                Thread.sleep(1000);
+                    String getMsg = reader.readLine().replaceAll("@", "\n");
+                    System.out.println(getMsg);
+                    clientSocket.close();
+                    Thread.sleep(1000);
+                }
+                else
+                {
+                    System.out.println("You are not accepted.");
+                }
 
             } catch (IOException e)
             {
@@ -76,5 +92,48 @@ public class Client
                 System.out.println("No connection.");
             }
         }
+    }
+
+    private static void sendingUser(Socket clientSocket, BufferedWriter writer, Scanner scanner)
+    {
+        User user;
+        System.out.println("Do you want to log in or sign up?");
+        while (true)
+        {
+            String logOrSign = scanner.nextLine();
+            if (logOrSign != null && (logOrSign.toLowerCase().contains("log") || logOrSign.toLowerCase().contains("sign")))
+            {
+                if (logOrSign.toLowerCase().contains("log"))
+                {
+                    user = UserCreator.createFromConsole(false);
+                    break;
+                }
+                if (logOrSign.toLowerCase().contains("sign"))
+                {
+                    user = UserCreator.createFromConsole(true);
+                    break;
+                }
+            }
+            else
+            {
+                System.out.println("Incorrect input. Try again.");
+            }
+        }
+        try
+        {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+            objectOutputStream.writeObject(user);
+            writer.newLine();
+            writer.flush();
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static boolean getResponse(BufferedReader reader) throws IOException
+    {
+        boolean response = Boolean.valueOf(reader.readLine());
+        return response;
     }
 }

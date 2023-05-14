@@ -4,21 +4,24 @@ import Command.Invoker;
 import Command.Receiver;
 import Utils.ManagerOfCollection;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        ManagerOfCollection.createMyCollection();
-        if (args[0].length() > 0) {
-            ManagerOfCollection.fillFromXml(args[0]);
-        }
-
-        Invoker commandInvoker = new Invoker();
-        HashMap<String, Command> invokerHashMap = commandInvoker.invokerHashMap;
-
-        Receiver commandReceiver = new Receiver(commandInvoker);
+//        ManagerOfCollection.createMyCollection();
+//        if (args[0].length() > 0) {
+//            ManagerOfCollection.fillFromXml(args[0]);
+//        }
+//
+//        Invoker commandInvoker = new Invoker();
+//        HashMap<String, Command> invokerHashMap = commandInvoker.invokerHashMap;
+//
+//        Receiver commandReceiver = new Receiver(commandInvoker);
 
         // invokerHashMap.put("help", new Help(commandReceiver));
         // invokerHashMap.put("info", new Info(commandReceiver));
@@ -37,11 +40,34 @@ public class Main {
         // invokerHashMap.put("max_by_melee_weapon", new MaxByMeleeWeapon(commandReceiver));
         // invokerHashMap.put("print_unique_chapter", new PrintUniqueChapter(commandReceiver));
 
-        try(Scanner scanner = new Scanner(System.in)) {
-            while (scanner.hasNextLine()) {
-                commandInvoker.invoke(scanner.nextLine().trim().split("\s+"));
-            }
-        } catch (Exception e) {
+//        try(Scanner scanner = new Scanner(System.in)) {
+//            while (scanner.hasNextLine()) {
+//                commandInvoker.invoke(scanner.nextLine().trim().split("\s+"));
+//            }
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Url of database:");
+        String url = scanner.nextLine();
+        System.out.println("User:");
+        String user = scanner.nextLine();
+        System.out.println("Password:");
+        String password = scanner.nextLine();
+        //redo it as reading from file
+
+        try
+        {
+            Class.forName("org.postgresql.Driver");
+            Connection connection = DriverManager.getConnection(url, user, password);
+            connection.close();
+            System.out.println("Success");
+        } catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e)
+        {
             throw new RuntimeException(e);
         }
     }

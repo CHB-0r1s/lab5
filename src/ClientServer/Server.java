@@ -1,7 +1,9 @@
 package ClientServer;
 // Да начнутся голодные игры!
 import Command.Command;
+import User.User;
 import Utils.ManagerOfCollection;
+import Utils.PasswordUtils.LoginPasswordManager;
 
 import java.io.*;
 import java.net.*;
@@ -47,16 +49,21 @@ public class Server
 
                 try
                 {
-                    Command command = (Command) objectInputStream.readObject();
-                    command.execute();
-                    System.out.println(command);
-                    out.close();
-                    while (scanner.hasNextLine())
+                    boolean responseToClient = sendResponse(objectInputStream, writer);
+                    if(responseToClient)
                     {
-                        writer.write(scanner.nextLine() + "@");
+                        Command command = (Command) objectInputStream.readObject();
+                        //^ StreamCorruptedException: invalid type code: 0D
+                        command.execute();
+                        System.out.println(command);
+                        out.close();
+                        while (scanner.hasNextLine())
+                        {
+                            writer.write(scanner.nextLine() + "@");
+                        }
+                        writer.newLine();
+                        writer.flush();
                     }
-                    writer.newLine();
-                    writer.flush();
                 } catch (ClassNotFoundException e)
                 {
                     System.out.println(e);
@@ -70,5 +77,16 @@ public class Server
                 System.out.println("Client sent nothing and left.");
             }
         }
+    }
+
+    private static boolean sendResponse(ObjectInputStream objectInputStream, BufferedWriter writer) throws IOException, ClassNotFoundException
+    {
+        User user = (User) objectInputStream.readObject();
+        boolean response = LoginPasswordManager.compareUser(user);
+
+        writer.write(String.valueOf(response));
+        writer.newLine();
+        writer.flush();
+        return response;
     }
 }
