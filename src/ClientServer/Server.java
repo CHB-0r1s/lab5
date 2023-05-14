@@ -53,7 +53,6 @@ public class Server
                     if(responseToClient)
                     {
                         Command command = (Command) objectInputStream.readObject();
-                        //^ StreamCorruptedException: invalid type code: 0D
                         command.execute();
                         System.out.println(command);
                         out.close();

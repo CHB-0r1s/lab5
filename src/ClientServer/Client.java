@@ -17,6 +17,7 @@ public class Client
         int port = MyPortReader.read("Write a port (in integer format, more than 1024):");
         Scanner scanner = new Scanner(System.in);
         boolean firstTime = true;
+        User thisUser = null;
 
         while (true)
         {
@@ -25,19 +26,23 @@ public class Client
                 Socket clientSocket = new Socket(host, port);
 
                 Invoker commandInvoker = new Invoker();
-                BufferedWriter writer = new BufferedWriter(
-                        new OutputStreamWriter(clientSocket.getOutputStream()));
                 BufferedReader reader = new BufferedReader(
                         new InputStreamReader(clientSocket.getInputStream()));
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
 
                 if(firstTime)
                 {
-                    sendingUser(clientSocket, writer, scanner);
+                    thisUser = sendingUser(objectOutputStream, scanner);
                     firstTime = false;
+                }
+                else
+                {
+                    thisUser.setNewable(false);
+                    sendingUser(objectOutputStream, thisUser);
                 }
                 if(getResponse(reader))
                 {
-                    sendingCommand(commandInvoker, clientSocket, writer, scanner);
+                    sendingCommand(commandInvoker, objectOutputStream, scanner);
 
                     String getMsg = reader.readLine().replaceAll("@", "\n");
                     System.out.println(getMsg);
@@ -60,17 +65,15 @@ public class Client
         }
     }
 
-    private static void sendingCommand(Invoker commandInvoker, Socket clientSocket, BufferedWriter writer, Scanner scanner)
+    private static void sendingCommand(Invoker commandInvoker, ObjectOutputStream objectOutputStream, Scanner scanner)
     {
         try{
             while (scanner.hasNextLine()) {
                 Command command = commandInvoker.invokeForClient(scanner.nextLine().trim().split("\s+"));
                 if (command != null)
                 {
-                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
                     objectOutputStream.writeObject(command);
-                    writer.newLine();
-                    writer.flush();
+                    objectOutputStream.flush();
                     return;
                 }
             }
@@ -94,7 +97,21 @@ public class Client
         }
     }
 
-    private static void sendingUser(Socket clientSocket, BufferedWriter writer, Scanner scanner)
+    private static void sendingUser(ObjectOutputStream objectOutputStream, User user)
+    {
+        try
+        {
+            objectOutputStream.writeObject(user);
+            objectOutputStream.flush();
+        } catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
+    private static User sendingUser(ObjectOutputStream objectOutputStream, Scanner scanner)
     {
         User user;
         System.out.println("Do you want to log in or sign up?");
@@ -121,13 +138,13 @@ public class Client
         }
         try
         {
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
             objectOutputStream.writeObject(user);
-            writer.newLine();
-            writer.flush();
+            objectOutputStream.flush();
+            return user;
         } catch (Exception e)
         {
             System.out.println(e.getMessage());
+            return null;
         }
     }
 

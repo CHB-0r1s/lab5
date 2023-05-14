@@ -25,6 +25,11 @@ public class User implements Serializable
         this.password = password;
     }
 
+    public void setNewable(boolean newable)
+    {
+        this.newable = newable;
+    }
+
     public String getLogin()
     {
         return login;

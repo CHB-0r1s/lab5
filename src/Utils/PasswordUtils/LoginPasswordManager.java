@@ -17,7 +17,7 @@ public class LoginPasswordManager
     public static boolean compareUser(User user)
     {
         String password = LoginPasswordManager.users.get(user.getLogin());
-        if (user.getPassword() == password)
+        if (user.getPassword().equals(password))
         {
             return true;
         }

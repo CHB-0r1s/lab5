@@ -59,7 +59,6 @@ public class Invoker implements Serializable
 
             invokerListOfCommand.add(command_name[0]);
 
-            fillHashMap();
             return command.clientExecute();
 
         }
