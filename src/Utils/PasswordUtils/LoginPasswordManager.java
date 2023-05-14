@@ -1,6 +1,7 @@
 package Utils.PasswordUtils;
 
 import User.User;
+import User.UserCreator;
 
 import java.util.HashMap;
 import java.util.TreeMap;
@@ -30,5 +31,16 @@ public class LoginPasswordManager
         {
             return false;
         }
+    }
+
+    public static void fillMap()
+    {
+        //fill from db
+        //UserCreator.create(login, password);
+    }
+
+    public static void writeToDataBase(User user)
+    {
+        //write to db
     }
 }

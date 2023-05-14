@@ -17,6 +17,7 @@ public class Server
     public static void main(String[] args) throws IOException
     {
         ManagerOfCollection.createMyCollection();
+        LoginPasswordManager.fillMap();
         if (args[0].length() > 0) {
             ManagerOfCollection.fillFromXml(args[0]);
         }
